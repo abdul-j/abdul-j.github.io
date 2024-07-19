@@ -1,24 +1,24 @@
 
 author: Abdul Aziz Jeter # author name
-email: abdulj.business@gmail.com # author email
-keywords: "abdul jeter, abdul, jeter, Abdul, Jeter, Abdul Jeter, Abdul Aziz Jeter, abdul aziz jeter, ABDUL JETER, ABDUL AZIZ JETER, abdulj github, abdul-j github, abdulj website, abdul has a website, abdul-j.github.io, abdul github, ABDUL, JETER, abdulj.github, abdul-j.github, cool website, website, blog, workhub, workhubnetwork, workhubnetwork.github.io, workhub network, scottie abdul, scottie, scottie wiliamson, scottie-w, scottie-w.github.io, mastery, abdul mastery, mastery charter shoemaker campus, abdul philly, abdul west philly, abdul mcsc, mcsc, who is abdul, school, abdul school, ab, the boy, playboi carti, papa mir, jaedan pagoria, shoemaker, shoemaker campus, 2017, abdul 2017" # html meta keywords
+email: abdulazizjtr@gmail.com # author email
+keywords: "abdul jeter, abdul, jeter, Abdul, Jeter, Abdul Jeter, Abdul Aziz Jeter, abdul aziz jeter, ABDUL JETER, ABDUL AZIZ JETER, abdulj github, abdul-j, abdul has a website, abdul has a blog, abdulisabroad, abdul aomori, abdul philly, abdul 2024" # html meta keywords
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://abdul-j.github.io" # the base hostname & protocol for your site
 name: Abdul Jeter
 markdown: kramdown
-url: "https://www.abdul-j.github.io/index.html"
+permalink: /:categories/:title/
 twitter:
-  username: Onejeter
+  username: prodfuze
 social:
   name: Abdul Jeter
   links:
-    - https://www.twitter.com/OneJeter
-    - https://www.facebook.com/bibleyj
+    - https://www.twitter.com/prodfuze
     - https://www.instagram.com/abdul.7z
     - https://www.github.com/abdul-j
 plugins:
   - jekyll-sitemap
+  - jekyll-seo-tag
 webmaster_verifications:
   google: googlefae959dd83b9ac7e
 gems:
-- jekyll-compass
+  - jekyll-compass
+  - jekyll-seo-tag
