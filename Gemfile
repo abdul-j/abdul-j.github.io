@@ -10,3 +10,5 @@ gem "jekyll-sitemap", "~> 1.4"
 
 gem 'jekyll-seo-tag'
 
+# Gemfile
+gem 'jekyll-feed', group: :jekyll_plugins

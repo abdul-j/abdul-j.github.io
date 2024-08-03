@@ -3,11 +3,11 @@ body, html {
   overflow-x: hidden;
   margin: 0px;
   padding: 0px;
+  background: #000;
 }
 
 a {
   text-decoration: none;
-  color: white;
 }
 
 h1 {

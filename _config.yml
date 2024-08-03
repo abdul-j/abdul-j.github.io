@@ -2,8 +2,11 @@
 author: Abdul Aziz Jeter # author name
 email: abdulazizjtr@gmail.com # author email
 keywords: "abdul jeter, abdul, jeter, Abdul, Jeter, Abdul Jeter, Abdul Aziz Jeter, abdul aziz jeter, ABDUL JETER, ABDUL AZIZ JETER, abdulj github, abdul-j, abdul has a website, abdul has a blog, abdulisabroad, abdul aomori, abdul philly, abdul 2024" # html meta keywords
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
+permalink: pretty
 name: Abdul Jeter
+title: "Abdul's Blog"
+description: "Welcome to my blog!"
 markdown: kramdown
 permalink: /:categories/:title/
 twitter:
@@ -17,8 +20,23 @@ social:
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
 webmaster_verifications:
   google: googlefae959dd83b9ac7e
 gems:
   - jekyll-compass
   - jekyll-seo-tag
+navigation:
+  - name: Home
+    link: /
+  - name: About
+    link: /about/
+  - name: Blog
+    link: /blog/
+feed:
+  path: feed.xml # Default path
+  title: "Abdul's Blog"
+  description: "Updates and articles from my Blog"
+  author_name: "Abdul Jeter"
+  author_email: "abduljtr@gmail.com"
+  copyright: "2024 Abdul's Blog"

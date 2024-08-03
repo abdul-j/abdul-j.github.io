@@ -3,24 +3,35 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">	  
-    <meta name="description" content="{{ page.description | default: site.description }}">
+    <meta name="description" content="Yeah">
     <meta name="google-site-verification" content="_5qph-AH15P5jfrDudrKvdLk0B0TNGsj32Bg80TNV18" />
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
     <link href="/assets/media/favicon.ico" rel="icon" type="image/x-icon">
-    <title>{{ page.title }}</title>
+    <title>Blog</title>
     <script type="text/javascript" src="/assets/js/jquery-3.2.1.js"></script> 	  
    </head>
    <body>
     <nav id="urlBar">
       <ul>
-        <li><a href="{{ "/" | relative_url }}">Home</a></li>
-        <li><a href="{{ "/about/" | relative_url }}">About</a></li>
-        <li><a href="{{ "/blog/" | relative_url }}">Blog</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
       </ul>
     </nav>
 
 
-    {{ content }}
+    <h1>Latest Posts</h1>
+
+<ul>
+  
+    <li>
+      <h2><a href="/life-is-a-beach/">Life Is A Beach</a></h2>
+      <p>A banana is an edible fruit – botanically a berry – produced by several
+kinds of large herbaceous flowering plants in the genus Musa.</p>
+
+    </li>
+  
+</ul>
       
    </body>
  </html>
