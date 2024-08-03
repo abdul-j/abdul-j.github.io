@@ -17,6 +17,7 @@ social:
     - https://www.twitter.com/prodfuze
     - https://www.instagram.com/abdul.7z
     - https://www.github.com/abdul-j
+theme: jekyll-theme-dinky
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
