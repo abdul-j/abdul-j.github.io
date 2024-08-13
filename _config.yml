@@ -17,8 +17,9 @@ social:
     - https://www.twitter.com/prodfuze
     - https://www.instagram.com/abdul.7z
     - https://www.github.com/abdul-j
-theme: wind-theme
+remote_theme: pages-themes/architect@v0.2.0
 plugins:
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
