@@ -17,9 +17,8 @@ social:
     - https://www.twitter.com/prodfuze
     - https://www.instagram.com/abdul.7z
     - https://www.github.com/abdul-j
-remote_theme: pages-themes/dinky@v0.2.0
+theme: wind-theme
 plugins:
-  - jekyll-remote-theme 
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
