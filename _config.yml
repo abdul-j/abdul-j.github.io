@@ -1,5 +1,5 @@
 
-author: Abdul Aziz Jeter # author name
+author: Abdul Jeter # author name
 email: abdulazizjtr@gmail.com # author email
 keywords: "abdul jeter, abdul, jeter, Abdul, Jeter, Abdul Jeter, Abdul Aziz Jeter, abdul aziz jeter, ABDUL JETER, ABDUL AZIZ JETER, abdulj github, abdul-j, abdul has a website, abdul has a blog, abdulisabroad, abdul aomori, abdul philly, abdul 2024" # html meta keywords
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -8,7 +8,7 @@ name: Abdul Jeter
 title: "Abdul's Blog"
 description: "Welcome to my blog!"
 markdown: kramdown
-permalink: /:categories/:title/
+permalink: /:categories/:year/:month/:day/:title:output_ext
 twitter:
   username: prodfuze
 social:
@@ -17,24 +17,19 @@ social:
     - https://www.twitter.com/prodfuze
     - https://www.instagram.com/abdul.7z
     - https://www.github.com/abdul-j
-remote_theme: daattali/beautiful-jekyll@6.0.1
 plugins:
-  - jekyll-remote-theme # add this line to the plugins list if you already have one
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-include-cache
 webmaster_verifications:
   google: googlefae959dd83b9ac7e
 gems:
   - jekyll-compass
   - jekyll-seo-tag
-navigation:
-  - name: Home
-    link: /
-  - name: About
-    link: /about/
-  - name: Blog
-    link: /blog/
+header_pages:
+  - about.html
+  - blog.html
 feed:
   path: feed.xml # Default path
   title: "Abdul's Blog"
