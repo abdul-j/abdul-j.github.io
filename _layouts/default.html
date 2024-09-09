@@ -16,7 +16,7 @@
    <body>
     <nav class="menu">
       {% for item in site.data.navigation %}
-        <a href="{{ item.link }}" {% if page.url == item.link %}style="color: red;text-decoration: underline;"{% endif %}>
+        <a href="{{ item.link }}" {% if page.url == item.link %}style="color: #f00;text-decoration: underline;"{% endif %}>
           {{ item.name }}
         </a>
       {% endfor %}

@@ -6,12 +6,19 @@ description: "Yeah!"
 ---
 <h1>Latest Posts</h1>
 
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <h2><a id="post-link" href="{{ post.url }}">{{ post.title }}</a> - {{ post.date }}</h2>
-      {{ post.excerpt }}
-    </li>
-  {% endfor %}
-</ul>
 
+  <ul>
+    {% for post in site.posts %}
+    <div class="post-box">
+      <div class="post-text">
+        <li>
+          <h2><a id="post-link" href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date_to_long_string}}</h2>
+          {{ post.excerpt }}
+        </li>
+      </div>
+      <div class="post-img">
+        <img src="assets/media/aj.jpeg" width="50" height="50"> </img>
+      </div>  
+    </div>
+    {% endfor %}
+  </ul>

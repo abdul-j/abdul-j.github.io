@@ -1,39 +1,24 @@
-@font-face{
-  font-family: "F1592 GLC Garamond W00 Normal";
-  src: url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.eot");
-  src: url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.eot?#iefix")format("embedded-opentype"),
-      url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.woff")format("woff"),
-      url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.woff2")format("woff2"),
-      url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.ttf")format("truetype"),
-      url("/assets/fonts/1592\ GLC\ Garamond\ W00\ Normal/Web\ Fonts/699be9bbdcd431f0cd96d23a53701842.svg#F1592 GLC Garamond W00 Normal")format("svg");
-  font-weight: 1px;
-  font-style:normal;
-  font-display:swap;
-}
-
 body, html {
   width: 100%;
   overflow-x: hidden;
   margin: 0px;
   padding: 0px;
-  background-color: black;
-  color: white;
+  background-color: #cef;
+  color: #000;
   text-decoration: none;
-  /* font-family: "F1592 GLC Garamond W00 Normal"; */
   align-items: center;
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: #00f;
 }
 
 a:visited {
-  color: white;
+  color: #000;
 }
 a:hover {
   text-decoration: underline;
-  font-size: calc(125%);
 }
 
 h1 {
@@ -57,7 +42,6 @@ p {
 
 .stuff {
   border: none;
-  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -78,11 +62,23 @@ p {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: white;
   text-decoration: none;
   font-size: xx-large;
 }
 
 #post-link {
-  color: lightgreen;
+  color: #0af;
+}
+
+.post-box {
+  display: flex;
+
+}
+
+.post-text {
+  width: 66%;
+}
+
+.post-img {
+  width: 34%;
 }
