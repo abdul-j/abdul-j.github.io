@@ -3,7 +3,7 @@ body, html {
   overflow-x: hidden;
   margin: 0px;
   padding: 0px;
-  background-color: #cef;
+  background-color: #def;
   color: #000;
   text-decoration: none;
   align-items: center;
@@ -63,7 +63,7 @@ p {
   align-items: center;
   text-align: center;
   text-decoration: none;
-  font-size: xx-large;
+  font-size: 300%;
 }
 
 #post-link {
@@ -76,9 +76,23 @@ p {
 }
 
 .post-text {
-  width: 66%;
+  width: 100%;
 }
 
 .post-img {
-  width: 34%;
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-head {
+  color: royalblue;
+  text-decoration: underline;
+  font-size: 300%;
+}
+
+.post-date {
+  font-weight: bold;
+  font-size: 200%;
+  text-align: center;
 }
