@@ -14,7 +14,7 @@ description: "Yeah!"
         <li>
           <div class="post-img">
             <div><h2><a id="post-link" href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date_to_long_string}}</h2></div>
-            <div><img src="assets/media/aj.jpeg" alt="abdul" width="50" height="50"> </img></div>
+            <div><a id="post-link" href="/about"></a><img id="author"src="assets/media/aj.jpeg" alt="abdul" width="50" height="50"> </img></a></div>
           </div>  
           {{ post.excerpt }}
         </li>
@@ -26,4 +26,7 @@ description: "Yeah!"
 
   <style> 
     img {padding: 5px;}
+    img:hover {transform: scale(2); /* Double the size */}
   </style>
+
+

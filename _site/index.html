@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  
+    <script type="text/javascript" src="assets/js/scripts.js"></script> 
    </head>
    <body>
     <nav class="menu">
@@ -36,13 +37,53 @@
     <div class="content_inner">
       <div class="stuff">
 		   <h2>Welcome.</h2>
-		   <p>I am super working on styling this site at the moment.</p>
+		   <p>I am working on adding some <div id="cool">cool new updates</div>at the moment.</p>
 		   <p>Please make yourself at home.</p>
       </div>
-      <script type="text/javascript" src="assets/js/scripts.js"></script> 
+      <h1 id="timezone_current">Fetching your time zone...</h1>
+      <span id="time_current"></span>
+      <h1 id="timezone_my">Time in Asia/Tokyo:</h1>
+      <span id="time_my"></span>
     </div>
   </main>
 </div>
+<script>
+  // Get the user's time zone
+const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log("User's Time Zone:", userTimeZone);
+
+// Display user's time zone on the page
+document.getElementById("timezone_current").innerText = `Time in ${userTimeZone}:`;
+
+// Define time formatters
+const userTimeFormatter = new Intl.DateTimeFormat("en-US", {
+	hour: "numeric",
+	minute: "numeric",
+  second: "numeric"
+});
+
+const tokyoTimeFormatter = new Intl.DateTimeFormat("en-US", {
+	timeZone: "Asia/Tokyo",
+	hour: "numeric",
+	minute: "numeric",
+  second: "numeric"
+});
+
+function updateTime() {
+	const now = new Date();
+	// Format the user's local time
+	const formattedUserTime = userTimeFormatter.format(now);
+	document.getElementById('time_current').textContent = `${formattedUserTime}`;
+
+	// Format Tokyo time
+	const formattedTokyoTime = tokyoTimeFormatter.format(now);
+	document.getElementById('time_my').textContent = `${formattedTokyoTime}`;
+}
+
+// Update time immediately and then every 100 milliseconds
+updateTime();
+setInterval(updateTime, 100);
+</script>
 <script type="application/ld+json"> 
 { "@context": "http://schema.org", 
  "@type": "Website",
