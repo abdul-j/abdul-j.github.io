@@ -1,5 +1,5 @@
 import NavBar from "./navbar";
-import aj from "/src/assets/aj.jpeg";
+import aj from "/assets/aj.jpeg";
 import Paper from "./paper";
 
 export default function Home() {
