@@ -23,7 +23,7 @@ function Model() {
 --------------------- */
 interface AutoPanProps {
   baseSpeed?: number;
-  isInteracting: React.MutableRefObject<boolean>;
+  isInteracting: React.RefObject<boolean>;
 }
 
 function AutoPan({ baseSpeed = 0.001, isInteracting }: AutoPanProps) {
