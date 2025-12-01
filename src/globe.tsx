@@ -37,7 +37,7 @@ export default function GlobePage() {
             size: 2,
             color: "cyan",
             label: "Philly",
-            alt: "0"
+            alt: 0
           },
         ])
         .pointColor("color")
