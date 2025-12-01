@@ -1,5 +1,5 @@
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
-import { useGLTF, useAnimations, OrbitControls } from "@react-three/drei";
+import { useGLTF, OrbitControls } from "@react-three/drei";
 import { Suspense, useRef, useEffect } from "react";
 import noteSvg from "/src/assets/note.svg";
 import { gsap } from "gsap";
@@ -8,12 +8,7 @@ import { gsap } from "gsap";
    Load + Animate Model
 --------------------- */
 function Model() {
-  const { scene, animations } = useGLTF("/src/assets/resume.glb");
-  const { actions } = useAnimations(animations, scene);
-
-  useEffect(() => {
-    actions["Unfold"]?.play();
-  }, [actions]);
+  const { scene } = useGLTF("/src/assets/resume.glb");
 
   return <primitive object={scene} />;
 }
@@ -23,10 +18,10 @@ function Model() {
 --------------------- */
 interface AutoPanProps {
   baseSpeed?: number;
-  isInteracting: React.RefObject<boolean>;
+  isInteracting: boolean;
 }
 
-function AutoPan({ baseSpeed = 0.001, isInteracting }: AutoPanProps) {
+function AutoPan({ baseSpeed, isInteracting }: AutoPanProps) {
   const { camera } = useThree();
   const angle = useRef(0);
   const radius = useRef(
@@ -34,7 +29,8 @@ function AutoPan({ baseSpeed = 0.001, isInteracting }: AutoPanProps) {
   );
 
   useFrame(() => {
-    if (isInteracting.current) return;
+    if (isInteracting) return;
+    if (!baseSpeed) return;
 
     angle.current += baseSpeed;
     camera.position.x = radius.current * Math.sin(angle.current);
@@ -56,18 +52,12 @@ interface HandwriteProps {
   delay?: number;
 }
 
-function Handwrite({
-  svg,
-  duration = 4,
-  width = 500,
-  height = 200,
-  delay = 1000,
-}: HandwriteProps) {
+function Handwrite({ svg, duration, width, height, delay }: HandwriteProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!svg || !containerRef.current) return;
-
+    if (!duration) return;
     const timeout = setTimeout(async () => {
       let svgText = svg;
 
@@ -94,10 +84,10 @@ function Handwrite({
         svgEl.querySelectorAll("path")
       ) as SVGPathElement[];
 
-      const total = paths.reduce(
-        (sum, p) => sum + p.getTotalLength(),
-        0
-      );
+      const total = paths.reduce((sum: number, p: SVGPathElement) => {
+        return sum + p.getTotalLength();
+      }, 0);
+
 
       let pathDelay = 0;
       paths.forEach((p) => {
@@ -136,7 +126,7 @@ function Handwrite({
 --------------------- */
 export default function Scene() {
   const controls = useRef<any>(null);
-  const isInteracting = useRef<boolean>(false);
+  let isInteracting = false;
 
   return (
     <div className="relative w-full h-screen">
@@ -159,8 +149,8 @@ export default function Scene() {
           enablePan
           enableRotate
           enableZoom
-          onStart={() => (isInteracting.current = true)}
-          onEnd={() => (isInteracting.current = true)}
+          onStart={() => (isInteracting = true)}
+          onEnd={() => (isInteracting = true)}
         />
 
         <AutoPan
