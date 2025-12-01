@@ -4,7 +4,7 @@ function App() {
   return (
       <div className="mx-auto">
         <NavBar />
-        Contact
+        Coming soon...
       </div>
   );
 }
