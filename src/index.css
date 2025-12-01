@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-my-blue: #00FFCC;
+  --font-mono: "Source Code Pro", monospace;
+}
+
+@media {
+  html, body {
+    @apply bg-black text-white scroll-smooth font-mono overflow-hidden;
+  }
+
+
+  .h-pad {
+    @apply px-10 py-10;
+  }
+}
