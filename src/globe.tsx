@@ -2,12 +2,13 @@ import { useEffect, useRef } from "react";
 import Globe from "react-globe.gl";
 
 const GlobePage = () => {
-  const globeEl = useRef();
+  const globeEl = useRef<any>(null);
+
   const arcData = [
     {
-      startLat: 40.0024, // Philly
+      startLat: 40.0024,
       startLng: -75.1180,
-      endLat: 40.6275, // Oirase
+      endLat: 40.6275,
       endLng: 141.3621,
       color: "red",
     },
@@ -26,34 +27,32 @@ const GlobePage = () => {
 
   useEffect(() => {
     if (!globeEl.current) return;
-    const controls = globeEl.current.controls();
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1;
-  }, [globeEl.current]);
-
+    globeEl.current.controls().autoRotate = true;
+    globeEl.current.controls().autoRotateSpeed = 1;
+  }, []);
 
   return (
     <div className="flex items-center justify-center cursor-grab">
-        <Globe
-          ref={globeEl}
-          backgroundColor="rgba(0,0,0,0)"
-          globeImageUrl={"//unpkg.com/three-globe/example/img/earth-dark.jpg"}
-          bumpImageUrl={"//unpkg.com/three-globe/example/img/earth-water.png"}
-          pointsData={pointsData}
-          pointColor="color"
-          pointRadius="size"
-          pointAltitude="alt"
-          pointLabel="label"
-          arcsData={arcData}
-          arcColor="color"
-          arcDashLength={0.3}
-          arcDashGap={0.5}
-          arcDashAnimateTime={2000}
-          width={400}
-          height={400}
-        />
-      </div>
+      <Globe
+        ref={globeEl}
+        backgroundColor="rgba(0,0,0,0)"
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
+        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-water.png"
+        pointsData={pointsData}
+        pointColor="color"
+        pointRadius="size"
+        pointAltitude="alt"
+        pointLabel="label"
+        arcsData={arcData}
+        arcColor="color"
+        arcDashLength={0.3}
+        arcDashGap={0.5}
+        arcDashAnimateTime={2000}
+        width={400}
+        height={400}
+      />
+    </div>
   );
-}
+};
 
-export default GlobePage; 
+export default GlobePage;
