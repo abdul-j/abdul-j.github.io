@@ -46,9 +46,9 @@ const GlobePage = () => {
           pointLabel="label"
           arcsData={arcData}
           arcColor="color"
-          arcDashLength={Math.random()}
-          arcDashGap={Math.random()}
-          arcDashAnimateTime={Math.random() * 4000 + 400}
+          arcDashLength={0.3}
+          arcDashGap={0.5}
+          arcDashAnimateTime={2000}
           width={400}
           height={400}
         />
