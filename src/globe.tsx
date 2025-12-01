@@ -5,9 +5,10 @@
 
     useEffect(() => {
 
-      import("globe.gl").then(({ default: Globe }) => {
-        
+      import("globe.gl").then((GlobeModule) => {
         if (!containerRef.current) return;
+
+        const Globe = GlobeModule.default;
         const globe = new Globe(containerRef.current!);
 
         globe
@@ -25,9 +26,9 @@
             },
           ])
           .arcColor("color")  
-          .arcDashLength((_d) => Math.random()) 
-          .arcDashGap((_d) => Math.random()) 
-          .arcDashAnimateTime((_d) => Math.random() * 4000 + 400);
+          .arcDashLength(Math.random()) 
+          .arcDashGap(Math.random()) 
+          .arcDashAnimateTime(Math.random() * 4000 + 400);
 
         globe
           .pointsData([
