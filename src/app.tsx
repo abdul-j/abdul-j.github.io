@@ -51,7 +51,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       <title>WHAT HAVE YOU DONE</title>
       <meta name="404" content="error lowkey"/>
       <h1>{message}</h1>
-      <h2>You can either go back <a class="lg:text-xl text-red-600 hover:underline hover:text-my-blue" href="/">home</a> or watch my goal in FIFA 14 on the PS2 with Leo Messi.</h2>
+      <h2>You can either go back <a className="lg:text-xl text-red-600 hover:underline hover:text-my-blue" href="/">home</a> or watch my goal in FIFA 14 on the PS2 with Leo Messi.</h2>
       <p>{details}</p>
       {stack && (
         <pre className="w-full p-4 overflow-x-auto">
