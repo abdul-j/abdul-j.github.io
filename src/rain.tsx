@@ -7,11 +7,22 @@ extend({ Container, BitmapText });
 
 const numDrops = 200;
 const dropSpeed = 4;
+const links = [
+  { id: "contact", text: "Contact Me", color: "red", y: 100, url: "/contact" },
+  { id: "linkedin", text: "LinkedIn", color: "orange", y: 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: "yellow", y: 300, url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: "green", y: 400, url: "mailto:abdulazizjtr@gmail.com" },
+];
+
+function handleClick(link: string) {
+  window.open( link, "_blank");
+}
+
 
 export default function Rain() {
   const { app } = useApplication();
   const [font, setFont] = useState(null);
-  const [color, setColor] = useState("white");
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Store raindrop Graphics instances without causing re-renders
   const raindrops = useRef<any[]>([]);
@@ -60,47 +71,24 @@ export default function Rain() {
 
   return (
     <pixiContainer>
-        <pixiContainer 
-            x={300} 
-            y={100}
-            interactive={true}
-            eventMode="static"
-            cursor="pointer"
-            onMouseOver= {() => { setColor("red"); }}
-            onClick = {() => { alert("You clicked me!"); }}
+      {links.map((link) => (
+        <pixiContainer
+          key={link.id}
+          x={300}
+          y={link.y}
+          interactive
+          eventMode="static"
+          cursor="pointer"
+          onMouseOver={() => setHoveredId(link.id)}
+          onMouseOut={() => setHoveredId(null)}
+          onClick={() => handleClick(link.url)}
         >
-            <pixiBitmapText text="Contact Me" tint={color}/>
+          <pixiBitmapText
+            text={link.text}
+            tint={hoveredId === link.id ? link.color : "white"}
+          />
         </pixiContainer>
-        <pixiContainer 
-            x={300} 
-            y={200}
-            interactive={true}
-            eventMode="static"
-            cursor="pointer"
-            onClick = {() => { window.open( "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1", "_blank"); }}
-        >
-            <pixiBitmapText text="LinkedIn" />
-        </pixiContainer>
-        <pixiContainer 
-            x={300} 
-            y={300}
-            interactive={true}
-            eventMode="static"
-            cursor="pointer"
-            onClick = {() => { window.open( "https://www.instagram.com/abdul.7z/", "_blank"); }}
-        >
-            <pixiBitmapText text="Instagram" />
-        </pixiContainer>
-        <pixiContainer 
-            x={300} 
-            y={400}
-            interactive={true}
-            eventMode="static"
-            cursor="pointer"
-            onClick = {() => { window.open( "mailto:abdulazizjtr@gmail.com", "_blank"); }}
-        >
-            <pixiBitmapText text="E-Mail" />
-        </pixiContainer>
+      ))}
     </pixiContainer>
 
   );
