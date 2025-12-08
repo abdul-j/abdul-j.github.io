@@ -1,15 +1,5 @@
-import {
-  isRouteErrorResponse,
-  Outlet,
-} from "react-router";
+import {isRouteErrorResponse} from "react-router";
 
-export default function App() {
-  return <Outlet />;
-}
-
-// -------------------------------------------
-// ✔ FIXED ERROR BOUNDARY: PROPER TYPING
-// -------------------------------------------
 export function ErrorBoundary({ error }: { error: unknown }) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
@@ -56,7 +46,7 @@ export function ErrorBoundary({ error }: { error: unknown }) {
       )}
 
       <video width="640" height="360" loop autoPlay muted controls>
-        <source src="/src/assets/vid2.mp4" type="video/mp4" />
+        <source src="/assets/vid2.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
       </video>
     </main>

@@ -6,23 +6,26 @@ import {
 } from 'react-router';
 
 import './index.css';
-import App from './app';
 import Home from './home';
 import Contact from './contact';
 import About from './about';
-
+import { ErrorBoundary } from './404';
 
 // Create the router
 const router = createBrowserRouter(
   [
     {
       path: '/',
-      Component: App,
-      children: [
-        { index: true, Component: Home },
-        { path: 'about', Component: About },
-        { path: 'contact', Component: Contact },
-      ],
+      Component: Home,
+      errorElement: <ErrorBoundary error={404}/>,
+    },
+    {
+      path: '/about',
+      Component: About
+    },
+    {
+      path: '/contact',
+      Component: Contact
     },
   ],
   {
