@@ -32,8 +32,8 @@ const router = createBrowserRouter(
         {
           path: '/works/poems'
           // Component: Poems
-        }
-        {,
+        },
+        {
           path: '/works/music'
           // Component: Music
         },
