@@ -9,8 +9,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "postbuild": "cp dist/index.html dist/404.html"
   },
   "dependencies": {
@@ -18,7 +16,6 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
     "@tailwindcss/vite": "^4.1.17",
-    "gh-pages": "^6.3.0",
     "gsap": "^3.13.0",
     "pixi.js": "^8.14.3",
     "react": "^19.2.0",
