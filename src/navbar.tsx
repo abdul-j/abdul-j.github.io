@@ -16,6 +16,14 @@ export default function NavBar() {
       </NavLink>
 
       <NavLink
+        to="/works"
+        end
+        className={linkClass}
+      >
+        Works
+      </NavLink>
+
+      <NavLink
         to="/about"
         end
         className={linkClass}

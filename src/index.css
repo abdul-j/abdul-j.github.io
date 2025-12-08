@@ -30,7 +30,7 @@
 
 @media {
   html, body {
-    @apply bg-black text-white scroll-smooth font-mono overflow-hidden;
+    @apply bg-black text-white scroll-smooth font-mono;
   }
 
 
