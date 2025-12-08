@@ -14,7 +14,7 @@ export default function Rain() {
   const [color, setColor] = useState("white");
 
   // Store raindrop Graphics instances without causing re-renders
-  const raindrops = useRef([]);
+  const raindrops = useRef<any[]>([]);
 
   useEffect(() => {
     Assets.load(mFont).then((tex) => setFont(tex));
