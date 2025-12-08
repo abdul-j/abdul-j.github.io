@@ -77,7 +77,7 @@ export default function Rain() {
             interactive={true}
             eventMode="static"
             cursor="pointer"
-            onClick = {() => { window.location.href = "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1"; }}
+            onClick = {() => { window.open( "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1", "_blank"); }}
         >
             <pixiBitmapText text="LinkedIn" />
         </pixiContainer>
@@ -87,7 +87,7 @@ export default function Rain() {
             interactive={true}
             eventMode="static"
             cursor="pointer"
-            onClick = {() => { window.location.href = "https://www.instagram.com/abdul.7z/"; }}
+            onClick = {() => { window.open( "https://www.instagram.com/abdul.7z/", "_blank"); }}
         >
             <pixiBitmapText text="Instagram" />
         </pixiContainer>
@@ -97,7 +97,7 @@ export default function Rain() {
             interactive={true}
             eventMode="static"
             cursor="pointer"
-            onClick = {() => { window.location.href = "mailto:abdulazizjtr@gmail.com"; }}
+            onClick = {() => { window.open( "mailto:abdulazizjtr@gmail.com", "_blank"); }}
         >
             <pixiBitmapText text="E-Mail" />
         </pixiContainer>
