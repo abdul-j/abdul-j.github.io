@@ -1,21 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { extend, useApplication, useTick } from "@pixi/react";
-import { Container, Assets, BitmapText, Graphics } from "pixi.js";
+import { Container, Assets, Text, Graphics } from "pixi.js";
 import mFont from "/assets/Minecraft.ttf";
 
-extend({ Container, BitmapText });
+extend({ Container, Text });
 
 const numDrops = 200;
 const dropSpeed = 4;
 const links = [
-  { id: "contact", text: "Contact Me", color: "red", y: 100, url: "/contact" },
-  { id: "linkedin", text: "LinkedIn", color: "orange", y: 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
-  { id: "instagram", text: "Instagram", color: "yellow", y: 300, url: "https://www.instagram.com/abdul.7z/" },
-  { id: "email", text: "E-Mail", color: "green", y: 400, url: "mailto:abdulazizjtr@gmail.com" },
+  { id: "contact", text: "Contact Me", color: 0xff0000, y: 100, url: "" },
+  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: 0xffff00, y: 300, url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: 0x008000, y: 400, url: "mailto:abdulazizjtr@gmail.com" },
 ];
 
 function handleClick(link: string) {
-  window.open( link, "_blank");
+  if (link.startsWith("m")) {
+    alert("My E-Mail is " + link.slice(7));  
+  } else if (link === "") {
+    alert("You can contact me through any of the other links!");
+  } else {
+    window.open( link, "_blank");
+  }
 }
 
 
@@ -81,11 +87,16 @@ export default function Rain() {
           cursor="pointer"
           onMouseOver={() => setHoveredId(link.id)}
           onMouseOut={() => setHoveredId(null)}
+          onTap={() => handleClick(link.url)}
           onClick={() => handleClick(link.url)}
         >
-          <pixiBitmapText
+          <pixiText
             text={link.text}
-            tint={hoveredId === link.id ? link.color : "white"}
+            style={{
+              fontFamily: 'Minecraft',
+              fontSize: 48,
+              fill: hoveredId === link.id ? link.color : 0xffffff,
+            }}
           />
         </pixiContainer>
       ))}
