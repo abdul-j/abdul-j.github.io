@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react";
 import noteSvg from "/assets/note.svg";
 import returnSvg from "/assets/return.svg";
 import { gsap } from "gsap";
+import SEO from "./seo";
 
 function Handwrite({ svgFile }: { svgFile: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,7 +83,14 @@ export default function Home() {
     setWidth((width) => (width === "w-1/2" ? "w-full" : "w-1/2"));
   };
   return (
-    <div>
+    <>
+      <SEO 
+        title="All about me"
+        description="This is the about page."
+        keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Personal Site"]}
+        author="Abdul Aziz Jeter"
+        canonical="https://abdulisabroad.com"
+      />
       <NavBar />
       <div className="flex md:flex-row items-center justify-center">
 
@@ -130,6 +138,6 @@ export default function Home() {
 
         </div>
       </div>
-    </div>
+    </>
   );
 }

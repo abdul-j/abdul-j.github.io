@@ -1,8 +1,17 @@
 import NavBar from "./navbar";
 import GlobeComponent from "./globe";
+import SEO from "./seo";
 
 function Home() {
   return (
+    <>
+      <SEO 
+        title="Abdul's Site"
+        description="Welcome to my personal website."
+        keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Personal Site"]}
+        author="Abdul Aziz Jeter"
+        canonical="https://abdulisabroad.com"
+      />
       <div className="mx-auto">
         <NavBar />
         <div className="mx-auto justify-center text-center">
@@ -12,6 +21,7 @@ function Home() {
           <p className="h-pad">Please make yourself at home.</p>
         </div>
       </div>
+    </>
   );
 }
 

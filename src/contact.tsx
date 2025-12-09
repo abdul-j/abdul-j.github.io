@@ -3,6 +3,7 @@ import { Application, extend, useTick} from "@pixi/react";
 import { useEffect, useCallback, useState, useRef} from "react";
 import { Assets, Sprite, Container} from "pixi.js";
 import Rain from "./rain";
+import SEO from "./seo";
 
 extend( { Sprite, Container } );
 
@@ -42,9 +43,18 @@ const Animation = () => {
 
 export default function App() {
   return (
-    <div className="mx-auto">
-      <NavBar />
-      <Animation />
-    </div>
+    <>
+      <SEO 
+        title="Click those links!"
+        description="This is the contact page."
+        keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Personal Site"]}
+        author="Abdul Aziz Jeter"
+        canonical="https://abdulisabroad.com/contact"
+      />
+      <div className="mx-auto">
+        <NavBar />
+        <Animation />
+      </div>
+    </>
   );
 }
