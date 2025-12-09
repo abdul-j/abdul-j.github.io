@@ -6,7 +6,7 @@ export default function NavBar() {
      ${isActive ? "text-red-500" : "hover:text-my-blue"}`;
 
   return (
-    <nav className="flex justify-center gap-4 py-4">
+    <nav className="flex justify-center gap-4 py-4 px-4">
       <NavLink
         to="/"
         end
