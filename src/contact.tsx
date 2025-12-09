@@ -25,7 +25,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
   const [bunnyPos, setBunnyPos] = useState({ x: 100, y: 100 });
-  const [velocity, setVelocity] = useState({ vx: 2, vy: 1 });
+  const [velocity, setVelocity] = useState({ vx: 3, vy: 3 });
   const [scale, setScale] = useState(2);
 
   const bounceBunny = () => {
@@ -38,14 +38,14 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
     y += vy;
 
     // Bounce off walls
-    if (x < 0 || x > 800) {
+    if (x < 0 || x > window.innerWidth - 60) {
       vx = -vx; // reverse X direction
-      x = Math.max(0, Math.min(800, x)); // clamp within bounds
+      x = Math.max(0, Math.min(window.innerWidth - 60, x)); // clamp within bounds
     }
 
-    if (y < 0 || y > 480) {
+    if (y < 0 || y > (window.innerHeight * 0.8 - 120)) {
       vy = -vy; // reverse Y direction
-      y = Math.max(0, Math.min(600, y)); // clamp within bounds
+      y = Math.max(0, Math.min(window.innerHeight * 0.8 - 120, y)); // clamp within bounds
     }
 
     // Update velocity state only when changed
@@ -83,7 +83,6 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
     setScore((prev) => prev + 1);
     if (score + 1 >= 10) {
       alert("Congrats! You clicked the bunny 10 times!");
-      setScore(0);
     } 
   };
 
@@ -173,7 +172,13 @@ const Animation = () => {
 
   return (
     <div ref={divRef}>
-      <Application resizeTo={divRef} preference="webgl" autoStart sharedTicker>
+      <Application 
+        resizeTo={divRef} 
+        preference="webgl" 
+        autoStart 
+        sharedTicker
+        height={window.innerHeight * 0.8}
+        >
         <MovingBunny score={score} setScore={setScore} />
         <ContactLinks />
         <Score score={score} />
