@@ -15,7 +15,12 @@ const links = [
   { id: "email", text: "E-Mail", color: 0x008000, y: 400, url: "mailto:abdulazizjtr@gmail.com" },
 ];
 
-const MovingBunny = ({ score, setScore }) => {
+interface MovingBunnyProps {
+  score: number;
+  setScore: (score: number | ((prev: number) => number)) => void;
+} 
+
+const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   const [texture, setTexture] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
@@ -76,6 +81,10 @@ const MovingBunny = ({ score, setScore }) => {
 
     // UPDATE SCORE (reactive)
     setScore((prev) => prev + 1);
+    if (score + 1 >= 10) {
+      alert("Congrats! You clicked the bunny 10 times!");
+      setScore(0);
+    } 
   };
 
   if (!texture) return null;
@@ -141,7 +150,7 @@ const ContactLinks = () => {
   );
 };
 
-const Score = ({ score }) => {
+const Score = ({ score }: { score: number }) => {
   return (
     <pixiText
       text={`Score: ${score}`}
