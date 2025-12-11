@@ -8,11 +8,14 @@ import mFont from "/assets/Minecraft.ttf";
 
 extend({ Sprite, Container, Text });
 
+const screenRatio = window.innerWidth / window.innerHeight;
+const scorePosition = window.innerHeight * 0.05;
+
 const links = [
-  { id: "contact", text: "Contact Me", color: 0xff0000, y: 100, url: "" },
-  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
-  { id: "instagram", text: "Instagram", color: 0xffff00, y: 300, url: "https://www.instagram.com/abdul.7z/" },
-  { id: "email", text: "E-Mail", color: 0x008000, y: 400, url: "mailto:abdulazizjtr@gmail.com" },
+  { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio * 100, url: "" },
+  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: screenRatio * 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: 0xffff00, y: screenRatio * 300, url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: 0x008000, y: screenRatio * 400, url: "mailto:abdulazizjtr@gmail.com" },
 ];
 
 interface MovingBunnyProps {
@@ -24,7 +27,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   const [texture, setTexture] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
-  const [bunnyPos, setBunnyPos] = useState({ x: 100, y: 100 });
+  const [bunnyPos, setBunnyPos] = useState({ x: scorePosition, y: scorePosition });
   const [velocity, setVelocity] = useState({ vx: 3, vy: 3 });
   const [scale, setScale] = useState(2);
 
@@ -82,7 +85,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
     // UPDATE SCORE (reactive)
     setScore((prev) => prev + 1);
     if (score + 1 >= 10) {
-      alert("Congrats! You clicked the bunny 10 times!");
+      alert(`Congrats! You tapped the bunny ${score} times!`);
     } 
   };
 
@@ -94,7 +97,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
       y={bunnyPos.y}
       interactive
       cursor="pointer"
-      onClick={handleClick}
+      onPointerDown={handleClick}
     >
       <pixiSprite texture={texture} rotation={rotation} scale={scale} />
     </pixiContainer>
@@ -126,14 +129,14 @@ const ContactLinks = () => {
       {links.map((link) => (
         <pixiContainer
           key={link.id}
-          x={300}
+          x={screenRatio * 100}
           y={link.y}
           interactive
-          eventMode="static"
+          eventMode="dynamic"
           cursor="pointer"
-          onMouseOver={() => setHoveredId(link.id)}
-          onMouseOut={() => setHoveredId(null)}
-          onClick={() => linkClick(link.url)}
+          onPointerOver={() => setHoveredId(link.id)}
+          onPointerOut={() => setHoveredId(null)}
+          onPointerDown={() => linkClick(link.url)}
         >
           <pixiText
             text={link.text}
@@ -150,11 +153,12 @@ const ContactLinks = () => {
 };
 
 const Score = ({ score }: { score: number }) => {
+  if (score== 0) return null;
   return (
     <pixiText
       text={`Score: ${score}`}
-      x={10}
-      y={10}
+      x={scorePosition}
+      y={scorePosition}
       style={{
         fontFamily: "Minecraft",
         fontSize: 36,
@@ -166,24 +170,35 @@ const Score = ({ score }: { score: number }) => {
 
 const Animation = () => {
   const divRef = useRef<HTMLDivElement>(null);
-
-  // Score MUST be inside a component to re-render
   const [score, setScore] = useState(0);
 
   return (
-    <div ref={divRef}>
-      <Application 
-        resizeTo={divRef} 
-        preference="webgl" 
-        autoStart 
-        sharedTicker
-        height={window.innerHeight * 0.8}
-        >
-        <MovingBunny score={score} setScore={setScore} />
-        <ContactLinks />
-        <Score score={score} />
-        <Rain />
-      </Application>
+    <div className="relative p-[3px] rounded-xl">
+      <div
+        className={`
+          absolute inset-0 rounded-xl
+          bg-[conic-gradient(from_var(--angle),var(--tw-gradient-from),var(--tw-gradient-via),var(--tw-gradient-to))]
+          from-my-emerald-500 via-my-blue to-blue-500
+          animate-tracer
+          ${score > 0 ? 'opacity-100' : 'opacity-0'}
+        `}
+      ></div>
+
+
+      <div ref={divRef} className="relative mx-auto rounded-lg overflow-hidden">
+        <Application 
+          resizeTo={divRef} 
+          preference="webgl" 
+          autoStart 
+          sharedTicker
+          height={window.innerHeight * 0.8}
+          >
+          <MovingBunny score={score} setScore={setScore} />
+          <ContactLinks />
+          <Score score={score} />
+          <Rain />
+        </Application>
+      </div>
     </div>
   );
 };
