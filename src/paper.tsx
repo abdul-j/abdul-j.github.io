@@ -30,7 +30,11 @@ export default function Scene() {
 
   return (
     <div className="relative w-full h-screen">
-      <Canvas camera={{ position: [0, 400, 100], fov: 50 }} style={{ width: "100%", height: "100%" }}>
+      <Canvas
+        camera={{ position: [0, 400, 100], fov: 50 }} 
+        resize={{ scroll: false , debounce: 0, offsetSize: false}}
+        style={{ width: "100%", height: "100%" }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[500, 500, 500]} intensity={1} />
 

@@ -1,86 +1,19 @@
 import NavBar from "./navbar";
 import aj from "/assets/aj.jpeg";
 import Paper from "./paper";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import noteSvg from "/assets/note.svg";
 import returnSvg from "/assets/return.svg";
-import { gsap } from "gsap";
 import SEO from "./seo";
-
-function Handwrite({ svgFile }: { svgFile: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [shakes, setShakes] = useState("");
-  const duration = 4; 
-  const width = 200;
-  const height = 200;
-  const delay = 1000; 
-
-  useEffect(() => {
-    const timeout = setTimeout(async () => {
-      if (!containerRef.current) return;
-
-      let svgText = "";
-      try {
-        svgText = await fetch(svgFile).then((r) => r.text());
-      } catch (err) {
-        console.error("Failed to load SVG:", err);
-        return;
-      }
-
-      containerRef.current.innerHTML = svgText;
-      const svgEl = containerRef.current.querySelector("svg");
-      if (!svgEl) return;
-
-      svgEl.setAttribute("width", `${width}`);
-      svgEl.setAttribute("height", `${height}`);
-      if (!svgEl.hasAttribute("viewBox")) {
-        svgEl.setAttribute("viewBox", `0 0 ${width} ${height}`);
-      }
-
-      const paths = Array.from(svgEl.querySelectorAll("path"));
-      const totalLength = paths.reduce((sum, p) => sum + p.getTotalLength(), 0);
-
-      let pathDelay = 0;
-      
-      paths.forEach((p) => {
-        const len = p.getTotalLength();
-        if (len < 0.5) return;
-
-        Object.assign(p.style, {
-          stroke: "white",
-          strokeWidth: "2",
-          fill: "none",
-          strokeDasharray: `${len}`,
-          strokeDashoffset: `${len}`,
-        });
-
-        const segDuration = (len / totalLength) * duration;
-        gsap.to(p, {
-          strokeDashoffset: 0,
-          duration: segDuration,
-          delay: pathDelay,
-          ease: "power1.inOut",
-        });
-        pathDelay += segDuration;
-      });
-      setTimeout(() => {
-        setShakes("animate-shake");
-      }, pathDelay * 1000);
-
-    }, delay);
-
-    return () => clearTimeout(timeout);
-  }, [svgFile]);
-
-  return <div ref={containerRef} className={`${shakes}`}/>;
-}
+import Handwrite from "./handwrite";
 
 export default function Home() {
-  const [width, setWidth] = useState("w-1/2");
-
+  const [open, setOpen] = useState(true);
+  const start = useRef(0);
   const handleClick = () => {
     // on every click push a new coordinate to the boxes array
-    setWidth((width) => (width === "w-1/2" ? "w-full" : "w-1/2"));
+    if (performance.now() - start.current > 200) return;
+    setOpen(!open);
   };
   return (
     <>
@@ -93,14 +26,15 @@ export default function Home() {
       />
       <NavBar />
       <div className="flex md:flex-row items-center justify-center">
-
-        {/* LEFT: Image */}
-        <div
-          className={`
+        <div //left side
+          className="
             flex flex-col items-center justify-center 
-            transition-all duration-500 overflow-hidden
-            ${width === "w-1/2" ? "w-1/2 opacity-100" : "w-0 opacity-0"}
-          `}
+            transition-all duration-500 ease-in-out overflow-hidden
+          "
+          style={{
+            width: open ? "50%" : "0",
+            opacity: open ? 1 : 0,
+          }}
         >
 
 
@@ -108,7 +42,7 @@ export default function Home() {
           About Me
           </h1>
           <img
-            className="w-1/3 overflow-hidden"
+            className="w-1/3 "
             src={aj}
             alt="abdul"
           />
@@ -116,22 +50,21 @@ export default function Home() {
             Yeah.
           </p>
         </div>
-        <div className={`${width} transition-all duration-500 relative`}>
+        <div //right side
+          className="flex flex-col items-center justify-center transition-all duration-500 ease-in-out overflow-hidden relative" 
+          onPointerDown={() => (start.current = performance.now())}
+          onPointerUp={handleClick}
+          style={{ width: open ? "50%" : "100%" }}
+        >
           <Paper />
-          {width === "w-1/2" && (
-            <div
-              className="absolute top-0 right-20 hover:cursor-pointer"
-              onClick={handleClick}
-            >
+          {open && (
+            <div className="absolute top-0 right-20 hover:cursor-pointer">
               <Handwrite key="note" svgFile={noteSvg} />
             </div>
           )}
 
-          {width === "w-full" && (
-            <div
-              className="absolute top-0 left-20 hover:cursor-pointer"
-              onClick={handleClick}
-            >
+          {!open && (
+            <div className="absolute top-0 left-20 hover:cursor-pointer">
               <Handwrite key="return" svgFile={returnSvg} />
             </div>
           )}
