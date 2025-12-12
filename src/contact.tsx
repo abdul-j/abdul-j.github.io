@@ -8,14 +8,16 @@ import mFont from "/assets/Minecraft.ttf";
 
 extend({ Sprite, Container, Text });
 
-const screenRatio = window.innerWidth / window.innerHeight;
-const scorePosition = window.innerHeight * 0.05;
+const appHeight = window.innerHeight * 0.8;
+const screenRatio = window.innerWidth / appHeight;
+const startX = window.innerWidth * 0.5;
+const startY = Math.random() * appHeight * 0.9;
 
 const links = [
-  { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio * 100, url: "" },
-  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: screenRatio * 200, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
-  { id: "instagram", text: "Instagram", color: 0xffff00, y: screenRatio * 300, url: "https://www.instagram.com/abdul.7z/" },
-  { id: "email", text: "E-Mail", color: 0x008000, y: screenRatio * 400, url: "mailto:abdulazizjtr@gmail.com" },
+  { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio + appHeight * 0.1, url: "" },
+  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: screenRatio * 100 + appHeight * 0.1, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: 0xffff00, y: screenRatio * 200 + appHeight * 0.1, url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: 0x008000, y: screenRatio * 300 + appHeight * 0.1, url: "mailto:abdulazizjtr@gmail.com" },
 ];
 
 interface MovingBunnyProps {
@@ -27,7 +29,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   const [texture, setTexture] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
-  const [bunnyPos, setBunnyPos] = useState({ x: scorePosition, y: scorePosition });
+  const [bunnyPos, setBunnyPos] = useState({ x: startX, y: startY});
   const [velocity, setVelocity] = useState({ vx: 3, vy: 3 });
   const [scale, setScale] = useState(2);
 
@@ -84,7 +86,12 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
 
     // UPDATE SCORE (reactive)
     setScore((prev) => prev + 1);
-    if (score + 1 >= 10) {
+    if (score >= 10) {
+      if (score >= 20) {
+        alert(`Enough is enough!I'm sending you home...!`);
+        window.location.href = "/";
+        return;
+      }
       alert(`Congrats! You tapped the bunny ${score} times!`);
     } 
   };
@@ -157,8 +164,8 @@ const Score = ({ score }: { score: number }) => {
   return (
     <pixiText
       text={`Score: ${score}`}
-      x={scorePosition}
-      y={scorePosition}
+      x={startX}
+      y={startY}
       style={{
         fontFamily: "Minecraft",
         fontSize: 36,
@@ -191,7 +198,7 @@ const Animation = () => {
           preference="webgl" 
           autoStart 
           sharedTicker
-          height={window.innerHeight * 0.8}
+          height={appHeight}
           >
           <MovingBunny score={score} setScore={setScore} />
           <ContactLinks />

@@ -58,7 +58,7 @@ export default function Home() {
         >
           <Paper />
           {open && (
-            <div className="absolute top-0 right-20 hover:cursor-pointer">
+            <div className="absolute top-0 right-0 hover:cursor-pointer">
               <Handwrite key="note" svgFile={noteSvg} />
             </div>
           )}
