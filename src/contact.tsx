@@ -60,14 +60,23 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   });
   };
 
+  useEffect(() => {
+    if (score > 9) {
+      if (score >= 20) {
+        alert(`Enough is enough! I'm sending you home...!`);
+        window.location.href = "/";
+        return;
+      }
+      alert(`Congrats! You tapped the bunny ${score} times!`);
+    }
+  }, [score]); 
+
   // Rotate bunny only when NOT playing
   useTick(() => {
-    if (!gameStart) {
-      setRotation(Math.sin(Date.now() / 200) * 0.2)
-    } else {
-      setRotation(0);
+    setRotation(Math.sin(Date.now() / 200) * 0.2)
+    if (gameStart) {
       bounceBunny();
-    };
+    } 
   });
 
   // Load texture
@@ -77,23 +86,15 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
 
   const handleClick = () => {
     setGameStart(true);
-    setScale(3 + Math.random() * 0.5);
-    // Move bunny regardless of start/stop
+    setScale(Math.random() + 3);
+
     setBunnyPos({
-      x: Math.random() * 800,
-      y: Math.random() * 600,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * appHeight,
     });
 
-    // UPDATE SCORE (reactive)
     setScore((prev) => prev + 1);
-    if (score >= 10) {
-      if (score >= 20) {
-        alert(`Enough is enough!I'm sending you home...!`);
-        window.location.href = "/";
-        return;
-      }
-      alert(`Congrats! You tapped the bunny ${score} times!`);
-    } 
+    
   };
 
   if (!texture) return null;
@@ -160,7 +161,7 @@ const ContactLinks = () => {
 };
 
 const Score = ({ score }: { score: number }) => {
-  if (score== 0) return null;
+  if (score == 0) return null;
   return (
     <pixiText
       text={`Score: ${score}`}
@@ -199,10 +200,10 @@ const Animation = () => {
           autoStart 
           sharedTicker
           height={appHeight}
-          >
+        >
+          <Score score={score} />
           <MovingBunny score={score} setScore={setScore} />
           <ContactLinks />
-          <Score score={score} />
           <Rain />
         </Application>
       </div>
