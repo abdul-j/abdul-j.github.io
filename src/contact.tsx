@@ -61,13 +61,12 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
   };
 
   useEffect(() => {
-    if (score > 9) {
-      if (score >= 20) {
-        alert(`Enough is enough! I'm sending you home...!`);
-        window.location.href = "/";
-        return;
-      }
+    if (score == 10) {
       alert(`Congrats! You tapped the bunny ${score} times!`);
+    } else if (score >= 20) {
+      alert(`Enough is enough! I'm sending you home...!`);
+      window.location.href = "/";
+      return;
     }
   }, [score]); 
 
