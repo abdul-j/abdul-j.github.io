@@ -1,4 +1,5 @@
 import {isRouteErrorResponse} from "react-router";
+import SEO from "./seo";
 
 export function ErrorBoundary({ error }: { error: unknown }) {
   let message = "Oops!";
@@ -20,35 +21,44 @@ export function ErrorBoundary({ error }: { error: unknown }) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <title>WHAT HAVE YOU DONE</title>
-      <meta name="404" content="error lowkey" />
+    <div className="flex flex md:flex-row items-center justify-center pt-16 p-4">
+      <div className="mx-auto w-1/2">
+        <SEO 
+          title="WHAT HAVE YOU DONE"
+          description="error lowkey."
+        />
+        <h1>{message}</h1>
 
-      <h1>{message}</h1>
+        <h2>
+          You can either go back{" "}
+          <a
+            className="lg:text-xl text-red-600 hover:underline hover:text-my-blue"
+            href="/"
+          >
+            home
+          </a>{" "}
+          or watch my goal in FIFA 14 on the PS2 with Leo Messi.
+        </h2>
 
-      <h2>
-        You can either go back{" "}
-        <a
-          className="lg:text-xl text-red-600 hover:underline hover:text-my-blue"
-          href="/"
-        >
-          home
-        </a>{" "}
-        or watch my goal in FIFA 14 on the PS2 with Leo Messi.
-      </h2>
+        <p>{details}</p>
 
-      <p>{details}</p>
+        {stack && (
+          <pre className="w-full p-4 overflow-x-auto">
+            <code>{stack}</code>
+          </pre>
+        )}
 
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-
-      <video width="640" height="360" loop autoPlay muted controls>
-        <source src="/assets/vid2.mp4" type="video/mp4" />
-        Your browser does not support HTML5 video.
-      </video>
-    </main>
+        <video width="640" height="360" loop autoPlay muted>
+          <source src="/assets/vid2.mp4" type="video/mp4" />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>  
+      <div className="w-1/2">
+        <video autoPlay controls>
+          <source src="/assets/objection.mp4" type="video/mp4" />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
   );
 }
