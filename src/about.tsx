@@ -1,5 +1,5 @@
 import NavBar from "./navbar";
-import aj from "/assets/me.JPG";
+import aj from "/assets/me.jpg";
 import Paper from "./paper";
 import { useRef, useState } from "react";
 import noteSvg from "/assets/note.svg";
