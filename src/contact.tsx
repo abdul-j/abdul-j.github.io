@@ -11,13 +11,13 @@ extend({ Sprite, Container, Text });
 const appHeight = window.innerHeight * 0.8;
 const screenRatio = window.innerWidth / appHeight;
 const startX = window.innerWidth * 0.5;
-const startY = Math.random() * appHeight * 0.9;
+const startY = appHeight * 0.9 - Math.random() * appHeight * 0.5;
 
 const links = [
   { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio + appHeight * 0.1, url: "" },
-  { id: "linkedin", text: "LinkedIn", color: 0xffa500, y: screenRatio * 100 + appHeight * 0.1, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
-  { id: "instagram", text: "Instagram", color: 0xffff00, y: screenRatio * 200 + appHeight * 0.1, url: "https://www.instagram.com/abdul.7z/" },
-  { id: "email", text: "E-Mail", color: 0x008000, y: screenRatio * 300 + appHeight * 0.1, url: "mailto:abdulazizjtr@gmail.com" },
+  { id: "linkedin", text: "LinkedIn", color: 0x3b82f6, y: screenRatio * 100 + appHeight * 0.1, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: 0x10b981, y: screenRatio * 200 + appHeight * 0.1, url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: 0x00ffcc, y: screenRatio * 300 + appHeight * 0.1, url: "abdulazizjtr@gmail.com" },
 ];
 
 interface MovingBunnyProps {
@@ -121,8 +121,12 @@ const ContactLinks = () => {
   }, []);
 
   const linkClick = (link: string) => {
-    if (link.startsWith("m")) {
-      alert("My E-Mail is " + link.slice(7));
+    if (link.startsWith("a")) {
+      navigator.clipboard.writeText(link).then(() => {
+        alert("I just copied my email to clipboard!");
+      }).catch((error) => {
+        alert("Failed to copy my email noooo: " + error);
+      });
     } else if (link === "") {
       alert("You can contact me through any of the other links!");
     } else {

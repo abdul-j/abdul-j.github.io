@@ -13,7 +13,7 @@
   --font-mono: "Source Code Pro", monospace;
   --animate-wiggle: wiggle 1s linear infinite both;  
   --animate-shake: shake 0.5s linear infinite both;
-  --animate-tracer: tracer 3s linear infinite both;
+  --animate-tracer: tracer 1s linear infinite both;
   @keyframes wiggle {
     0%        { transform: rotate(0deg); }
     25%       { transform: rotate(3deg); }
