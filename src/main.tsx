@@ -11,6 +11,9 @@ import Home from './home';
 import Contact from './contact';
 import About from './about';
 import Works from './works';
+import Poems from './poems';
+import Archive from './archive';
+import PoemPage from './poempage';
 import { ErrorBoundary } from './404';
 
 // Create the router
@@ -22,7 +25,7 @@ const router = createBrowserRouter(
       errorElement: <ErrorBoundary error={404}/>,
     },
     {
-      path: '/works',
+      path: 'works',
       element: <Outlet />,
       children: [
         {
@@ -30,18 +33,30 @@ const router = createBrowserRouter(
           Component: Works
         },
         {
-          path: '/works/poems'
-          // Component: Poems
-        },
-        {
-          path: '/works/music'
-          // Component: Music
-        },
-        {
-          path: '/works/tools'
-          // Component: Tools
+          path: 'poems',
+          element: <Outlet />,
+          children: [
+            {
+              index: true,
+              Component: Poems
+            },
+            {
+              path: 'archive',
+              element: <Outlet />,
+              children: [
+                {
+                  index: true,
+                  Component: Archive 
+                },
+                {
+                  path: ':slug',   
+                  Component: PoemPage
+                }
+              ]
+            }
+          ]
         }
-      ],
+      ]
     },
     {
       path: '/about',
