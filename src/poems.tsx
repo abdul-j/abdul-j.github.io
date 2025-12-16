@@ -101,7 +101,7 @@ export function Poem({ slug }: PoemProps) {
         </div>
         <div
           className="
-            bg-white
+            bg-blue-100
             text-black
             z-0
             fixed
@@ -111,7 +111,7 @@ export function Poem({ slug }: PoemProps) {
             flex
             items-center
             justify-center
-            opacity-20
+            opacity-25
             select-none
             pointer-events-none
             overflow-hidden
