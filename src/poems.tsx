@@ -84,6 +84,7 @@ export function Poem({ slug }: PoemProps) {
 
         <div
           className="
+            relative
             z-10
             text-lg
             leading-relaxed
@@ -103,12 +104,21 @@ export function Poem({ slug }: PoemProps) {
             bg-white
             text-black
             z-0
-            scale-50
-            md:static
+            fixed
+            inset-0
+            w-screen
+            h-screen
+            flex
+            items-center
+            justify-center
+            opacity-20
+            select-none
+            pointer-events-none
+            overflow-hidden
           "
         >
           <ASCIIArt slug={poem.image} />
-      </div>
+        </div>
     </article>
 
 

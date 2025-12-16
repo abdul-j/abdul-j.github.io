@@ -56,6 +56,6 @@ export function ASCIIArt({ slug }: ASCIIProps) {
   }
 
   return (
-    <pre className="leading-none whitespace-pre">{image.ascii}</pre>
+    <pre className="leading-none whitespace-pre scale-50">{image.ascii}</pre>
   );
 }
