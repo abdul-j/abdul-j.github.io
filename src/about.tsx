@@ -42,11 +42,11 @@ export default function Home() {
           About Me
           </h1>
           <img
-            className="w-1/2 "
+            className="w-1/2"
             src={aj}
             alt="abdul"
           />
-          <p className="mt-6 mb-6 text-lg font-normal text-body lg:text-xl sm:px-16 xl:px-48">
+          <p className="m-8 text-lg font-normal text-body lg:text-xl sm:px-16 xl:px-48">
             Hi, my name is Abdul. <br /> Yeah, I like blueberries.
           </p>
         </div>

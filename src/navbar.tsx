@@ -2,14 +2,15 @@ import { NavLink } from "react-router";
 
 export default function NavBar() {
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `px-3 py-1 rounded transition-colors text-2xl
+    `rounded transition-colors text-2xl
      ${isActive ? "text-red-500" : "hover:text-my-blue"}`;
 
   return (
-    <nav className="flex justify-center gap-4 py-4 px-4">
+    <nav className="flex justify-center gap-4 p-4 m-4 ml-4 mr-4">
       <NavLink
         to="/"
         end
+        prefetch="viewport"
         className={linkClass}
       >
         Home
@@ -18,6 +19,7 @@ export default function NavBar() {
       <NavLink
         to="/works"
         end
+        prefetch="viewport"
         className={linkClass}
       >
         Works
@@ -26,6 +28,7 @@ export default function NavBar() {
       <NavLink
         to="/about"
         end
+        prefetch="viewport"
         className={linkClass}
       >
         About
@@ -34,6 +37,7 @@ export default function NavBar() {
       <NavLink
         to="/contact"
         end
+        prefetch="viewport"
         className={linkClass}
       >
         Contact

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import SEO from "./seo";
 import NavBar from "./navbar";
+import { ASCIIArt } from "./ascii";
 
 interface PoemProps {
   slug: string;
@@ -13,6 +15,7 @@ interface PoemData {
   content: string;
   date?: string;
   tags?: string[];
+  image: string;
 }
 
 export function Poem({ slug }: PoemProps) {
@@ -59,10 +62,12 @@ export function Poem({ slug }: PoemProps) {
   }
 
   return (
-    <article className="mx-auto max-w-prose px-4">
+    <article className="flex flex-col items-center justify-center mx-auto px-4 md:px-0">
       <header className="mb-8 text-center">
         <h1 className="text-3xl font-semibold">{poem.title}</h1>
-        {poem.date && <p className="text-sm">{new Date(poem.date).toLocaleDateString()}</p>}
+        {poem.date && (
+          <p className="text-sm">{new Date(poem.date).toLocaleDateString()}</p>
+        )}
         {poem.tags && (
           <div className="mt-2">
             {poem.tags.map((tag: string) => (
@@ -76,10 +81,38 @@ export function Poem({ slug }: PoemProps) {
           </div>
         )}
       </header>
-      <div className="text-justify space-y-4 text-lg leading-relaxed">
-        <ReactMarkdown remarkPlugins={[remarkBreaks]}>{poem.content}</ReactMarkdown>
+
+        <div
+          className="
+            z-10
+            text-lg
+            leading-relaxed
+            space-y-4
+            italic
+            max-w-2xl
+            md:text-xl
+            md:leading-loose
+          "
+        >
+          <ReactMarkdown remarkPlugins={[remarkBreaks]}>
+            {poem.content}
+          </ReactMarkdown>
+        </div>
+        <div
+          className="
+            bg-white
+            text-black
+            z-0
+            scale-50
+            md:static
+          "
+        >
+          <ASCIIArt slug={poem.image} />
       </div>
     </article>
+
+
+
   );
 }
 
@@ -102,7 +135,11 @@ export default function () {
           <div className="p-4">
             Haven't written it yet oops.
           </div>
-          <h1 className="text-3xl"><a className="hover:border-4" href="/works/poems/archive">Archive</a></h1>
+          <Link to="/works/poems/archive" prefetch="viewport">
+            <h1 className="text-3xl hover:text-my-blue mt-8">
+              Archive
+            </h1>
+          </Link>
         </div>
       </div>
     </>

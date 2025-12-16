@@ -4,6 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Decal, useTexture } from "@react-three/drei";
 import { useRef, useState } from "react";
 import { gsap } from "gsap";
+import { Link } from "react-router";
 
 function PaintSplat() {
   const texture = useTexture("/assets/aj.jpeg")
@@ -92,7 +93,7 @@ export default function () {
           </Canvas>
         </div>
         <div className="flex flex-col items-center justify-center space-y-6 my-12">
-          <a className="text-7xl hover:underline" href="/works/poems">Poems</a>
+          <Link to="/works/poems" className="text-7xl hover:underline" prefetch="viewport">Poems</Link>
         </div>
       </div>
     </>

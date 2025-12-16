@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-export default function Handwrite({ svgFile }: { svgFile: string }) {
+type HandwriteProps = {
+  svgFile: string;
+  animate?: boolean;
+};
+
+export default function Handwrite({ svgFile, animate }: HandwriteProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [shakes, setShakes] = useState("");
-  const duration = 4; 
+  const duration = 4;
   const width = 200;
   const height = 200;
-  const delay = 1000; 
+  const delay = 1000;
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
@@ -35,7 +40,7 @@ export default function Handwrite({ svgFile }: { svgFile: string }) {
       const totalLength = paths.reduce((sum, p) => sum + p.getTotalLength(), 0);
 
       let pathDelay = 0;
-      
+
       paths.forEach((p) => {
         const len = p.getTotalLength();
         if (len < 0.5) return;
@@ -57,14 +62,16 @@ export default function Handwrite({ svgFile }: { svgFile: string }) {
         });
         pathDelay += segDuration;
       });
-      setTimeout(() => {
-        setShakes("animate-shake");
-      }, pathDelay * 1000);
 
+      if (animate) {
+        setTimeout(() => {
+          setShakes("animate-shake");
+        }, pathDelay * 1000);
+      }
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [svgFile]);
+  }, [svgFile, animate]);
 
-  return <div ref={containerRef} className={`${shakes}`}/>;
+  return <div ref={containerRef} className={shakes} />;
 }
