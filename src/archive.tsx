@@ -2,6 +2,7 @@ import SEO from "./seo";
 import NavBar from "./navbar";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import { ASCIIArt } from "./ascii";
 
 export function usePoems() {
   const [poemList, setPoemList] = useState<string[] | null>(null);
@@ -44,10 +45,10 @@ export default function Archive() {
                 author="Abdul Aziz Jeter"
                 canonical="https://abdulisabroad.com/poems"
             />
-            <div className="mx-auto text-center">
+            <div className="mx-auto z-10 text-center">
                 <NavBar />
             </div>
-            <div>
+            <div className="mx-auto z-10">
                 <h1 className="text-4xl font-bold mb-4 text-center">Poem Archive</h1>
                 <div className="max-w-3xl mx-auto p-4">
                     {poemList.poemList ? (
@@ -68,6 +69,26 @@ export default function Archive() {
                         <p>Loading poems...</p>
                     )}
                 </div>
+            </div>
+            <div
+                className="
+                bg-blue-100
+                text-black
+                fixed
+                z-0
+                inset-0
+                w-screen
+                h-screen
+                flex
+                items-center
+                justify-center
+                opacity-25
+                select-none
+                pointer-events-none
+                overflow-hidden
+                "
+            >
+                <ASCIIArt slug={"aj.jpeg"} />
             </div>
         </>
     );

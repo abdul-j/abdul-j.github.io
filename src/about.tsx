@@ -59,13 +59,13 @@ export default function Home() {
           <Paper />
           {open && (
             <div className="absolute top-0 right-0 hover:cursor-pointer">
-              <Handwrite key="note" svgFile={noteSvg} />
+              <Handwrite key="note" svgFile={noteSvg} animate={true} />
             </div>
           )}
 
           {!open && (
             <div className="absolute top-0 left-20 hover:cursor-pointer">
-              <Handwrite key="return" svgFile={returnSvg} />
+              <Handwrite key="return" svgFile={returnSvg} animate={false} />
             </div>
           )}
 

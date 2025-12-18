@@ -1,57 +1,39 @@
-import { useEffect, useRef } from "react";
-import { extend, useApplication, useTick } from "@pixi/react";
-import { Container, Graphics } from "pixi.js";
-
-extend({ Container, Text });
-
-const numDrops = 200;
-const dropSpeed = 4;
+import { useApplication } from "@pixi/react";
+import { ParticleContainer, Particle, Texture } from "pixi.js";
 
 export default function Rain() {
-  const { app } = useApplication();
-
-  // Store raindrop Graphics instances without causing re-renders
-  const raindrops = useRef<any[]>([]);
-
-  useEffect(() => {
-    if (!app || !app.renderer) return;
-
-    // Create raindrops once
-    for (let i = 0; i < numDrops; i++) {
-      const drop = new Graphics();
-
-      const screen = app.renderer.screen;
-      drop.setFillStyle({ color: 0xADD8E6 });
-      drop.rect(0, 0, 2, 15);
-
-      drop.x = Math.random() * screen.width;
-      drop.y = Math.random() * screen.height;
-
-      
-      raindrops.current.push(drop);
-      app.stage.addChild(drop);
-    }
-  }, [app]);
-
-  // Animation loop
-  useTick(() => {
-    if (!app || !app.renderer) return;
-
-    raindrops.current.forEach((drop) => {
-
-      const screen = app.renderer.screen;
-      drop.y += dropSpeed;
-
-      if (drop.y > screen.height) {
-        drop.y = -20;
-        drop.x = Math.random() * screen.width;
+  const raindrops = 500;
+  const {app} = useApplication();
+  const texture = Texture.WHITE;
+  const drops: Particle[] = [];
+  const rainContainer = new ParticleContainer({
+    dynamicProperties: {
+      position: true,
+      rotation: false,
+      scale: true,
+      alpha: false,
+  } });
+  if (!app.stage || !app.renderer) return null;
+  for (let i = 0; i < raindrops; i++) {
+    const drop = new Particle(texture);
+    drop.tint = 0x66ccff;
+    drop.x = Math.random() * app.renderer.width;
+    drop.y = Math.random() * app.renderer.height;
+    drop.scaleX = Math.random() * 2;
+    drop.scaleY = 4 + Math.random() * 2;
+    rainContainer.addParticle(drop);
+    drops.push(drop);
+  }
+  app.ticker.add(() => {
+    if (!app.renderer) return;
+    drops.forEach((drop) => {
+      drop.y += 10 + drop.scaleY * 0.5;
+      if (drop.y > app.renderer.height) {
+        drop.y = -10;
+        drop.x = Math.random() * app.renderer.width;
       }
     });
   });
-
-  return (
-    <pixiContainer>
-    </pixiContainer>
-
-  );
+  app.stage.addChild(rainContainer);
+  return null;
 }

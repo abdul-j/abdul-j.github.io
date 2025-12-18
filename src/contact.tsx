@@ -204,10 +204,10 @@ const Animation = () => {
           sharedTicker
           height={appHeight}
         >
-          <Score score={score} />
           <MovingBunny score={score} setScore={setScore} />
-          <ContactLinks />
           <Rain />
+          <Score score={score} />
+          <ContactLinks />
         </Application>
       </div>
     </div>
