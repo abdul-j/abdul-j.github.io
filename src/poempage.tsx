@@ -12,7 +12,7 @@ export default function PoemPage() {
   }
   return (
     <>
-        <div className="">
+        <div className="z-10">
             <NavBar />
         </div>
         <Poem slug={slug} />

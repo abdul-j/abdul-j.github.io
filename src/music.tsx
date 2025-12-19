@@ -6,6 +6,7 @@ interface TypingEffectProps {
   texts: string[];
   swing: boolean;
 }
+
 export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps) {
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
@@ -13,8 +14,14 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
   const [direction, setDirection] = useState(0);
   const time = 100;
   useEffect(() => {
+    const headers = document.querySelectorAll("h2");
+    if (!headers.length) return;
+    const randomHeader = headers[Math.floor(Math.random() * headers.length)];
+    const randomRed = `rgb(${Math.floor(Math.random() * 156)}, 0, 0)`;
+    randomHeader.style.color = randomRed;
     const timeout = setTimeout(() => {
         const text = texts[textIndex];
+        randomHeader.style.color = "white";
         if (direction === 0) {
             setDisplayedText(text.slice(0, index + 1));
             if (index + 1 === text.length) {
@@ -38,9 +45,9 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
   return (
     <div className="pointer-events-none select-none">
         <div className="fixed bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"> 
-            <h2 className="text-[10vh] text-shadow-lg backdrop-saturate-50 scale-x-200 ">{displayedText}</h2>
+            <h1 className="text-[10vh] text-shadow-lg tracking-widest blur-xs scale-x-200 ">{displayedText}</h1>
         </div>
-        <div className="skew-6 transform-flat z-10 max-w-1/2 skew-x-50">
+        <div className="skew-6 transform-flat z-10 max-w-1/2 skew-x-50 blur-xs">
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-0">{displayedText}</h2>
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-80">{displayedText}</h2>
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-60">{displayedText}</h2>
@@ -50,13 +57,12 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
         </div>
         <div className="fixed bold top-0 left-0 z-0 text-nowrap blur-sm"> 
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-8">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-6">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-4">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-2">{displayedText}</h2>
+            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h3>
+            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-8">{displayedText}</h3>
+            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-6">{displayedText}</h3>
+            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-4">{displayedText}</h3>
+            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-2">{displayedText}</h3>
         </div>
-        
     </div>
     );
 }
@@ -120,12 +126,23 @@ export function Beat() {
 }
 
 export default function () {
-    const duration = `${Math.random() * 4 + 1}s`; // 1s–5s
+    const random = Math.random() * 4 + 1;
+    const duration = `${random}s`;
     const [clicked, setClicked] = useState(false);
+    const [bgColor, setBgColor] = useState('');
     const handleClick = () => {
         setClicked(true);
         document.documentElement.style.overflow = 'hidden';
     };
+    setTimeout(() => {
+        const randomColor = Math.floor(Math.random() * 256);
+        if (Math.random() < 0.25) {
+            setBgColor(`rgb(${Math.floor(Math.random() * 256)}, 0, ${Math.floor(Math.random() * 256)})`);
+        } else {
+            setBgColor(`rgb(${randomColor}, ${randomColor}, ${randomColor})`);
+        }
+        
+    }, 3000); // Change color within 1 second of click
 
     return (
         <>
@@ -136,14 +153,21 @@ export default function () {
             author="Abdul Aziz Jeter"
             canonical="https://abdulisabroad.com/works/music"
         />
-        <div className="">
+        <div className="relative">
             <NavBar />
             {!clicked ? (
-                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:text-7xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
+                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:blur-xs hover:text-7xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
             ) : (
                 <div className="p-4 max-w-screen mx-auto">
                     <Beat />
-                    <div className="w-screen h-screen fixed top-0 left-0 z-0 bg-white opacity-0 animate-fadee" style={{animationDuration: duration}} />
+                    <div
+                        className="fixed top-0 left-0 inset-0 z-0 w-screen h-screen bg-white opacity-0 animate-fadee transition-colors pointer-events-none"
+                        style={{
+                            backgroundColor: bgColor,
+                            animationDuration: duration,
+                        }}
+                    />
+
                 </div>
             )}
             
