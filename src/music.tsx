@@ -49,12 +49,12 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
         </div>
-        <div className="fixed bold top-0 left-0 z-0 text-nowrap blur-md"> 
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-5">{displayedText}</h2>
+        <div className="fixed bold top-0 left-0 z-0 text-nowrap blur-sm"> 
+            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
+            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-8">{displayedText}</h2>
+            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-6">{displayedText}</h2>
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-4">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-3">{displayedText}</h2>
             <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-2">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
         </div>
         
     </div>
@@ -66,7 +66,6 @@ export function Beat() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState<string>("null");
-  const [get, setGet] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBeat = async () => {
@@ -83,17 +82,14 @@ export function Beat() {
         const filename = match ? match[1] : "an mp3 file";
         console.log("Filename:", filename);
         setSong(data);
-        setName(filename);
+        setName(filename.split(".mp3")[0]);
       } catch (err: any) {
         setError(err.message); // Handle any errors here
       } finally {
         setLoading(false); // Stop loading
       }
     };
-    if (!get) {
-        fetchBeat();
-        setGet(true);
-    }
+    fetchBeat();
   }, []);
 
   if (loading) {
