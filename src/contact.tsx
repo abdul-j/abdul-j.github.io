@@ -23,9 +23,10 @@ const links = [
 interface MovingBunnyProps {
   score: number;
   setScore: (score: number | ((prev: number) => number)) => void;
+  setFall: (fall: boolean) => void;
 } 
 
-const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
+const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   const [texture, setTexture] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
@@ -93,6 +94,7 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
     });
 
     setScore((prev) => prev + 1);
+    setFall(true);
     if (score >= 10) {
       setVelocity((prev) => ({
         vx: prev.vx * 1.2,
@@ -187,6 +189,7 @@ const Score = ({ score }: { score: number }) => {
 const Animation = () => {
   const divRef = useRef<HTMLDivElement>(null);
   const [score, setScore] = useState(0);
+  const [fall, setFall] = useState(false);
 
   return (
     <div className="relative p-[3px] rounded-xl">
@@ -199,8 +202,7 @@ const Animation = () => {
           ${score > 0 ? 'opacity-100' : 'opacity-0'}
         `}
       ></div>
-
-
+      {fall && <audio className="hidden" src="/assets/noise.wav" autoPlay loop preload="auto" />}
       <div ref={divRef} className="relative mx-auto rounded-lg overflow-hidden">
         <Application 
           resizeTo={divRef} 
@@ -209,8 +211,8 @@ const Animation = () => {
           sharedTicker
           height={appHeight}
         >
-          <MovingBunny score={score} setScore={setScore} />
-          <Rain />
+          <MovingBunny score={score} setScore={setScore} setFall={setFall} />
+          {fall && <Rain />}
           <Score score={score} />
           <ContactLinks />
         </Application>

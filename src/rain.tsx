@@ -35,5 +35,6 @@ export default function Rain() {
     });
   });
   app.stage.addChild(rainContainer);
+  
   return null;
 }

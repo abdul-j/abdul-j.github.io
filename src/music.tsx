@@ -143,7 +143,7 @@ export default function () {
         <div className="">
             <NavBar />
             {!clicked ? (
-                <h1 onClick={handleClick} className="text-6xl hover:cursor-pointer hover:text-7xl hover:text-my-blue mb-6">Click me to play a song</h1>
+                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:text-7xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
             ) : (
                 <div className="p-4 max-w-screen mx-auto">
                     <Beat />
