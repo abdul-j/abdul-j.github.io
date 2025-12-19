@@ -44,24 +44,27 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
   }, [index, textIndex, direction]);    
   return (
     <div className="pointer-events-none select-none">
-        <div className="fixed bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"> 
-            <h1 className="text-[10vh] text-shadow-lg tracking-widest blur-xs scale-x-200 ">{displayedText}</h1>
+        <div className="lg:fixed bold lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 z-20"> 
+            <h1 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest blur-xs lg:scale-x-200 text-balance wrap-anywhere">{displayedText}</h1>
         </div>
-        <div className="skew-6 transform-flat z-10 max-w-1/2 skew-x-50 blur-xs">
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-0">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-80">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-60">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-40">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-20">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
-            <h2 className="text-[10vh] text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
+        <div className="fixed skew-12 transform-flat z-10 max-w-1/2 skew-x-50 blur-xs">
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-0">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-20">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-20">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-10">{displayedText}</h2>
+            <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-1">{displayedText}</h2>
         </div>
-        <div className="fixed bold top-0 left-0 z-0 text-nowrap blur-sm"> 
-            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-10">{displayedText}</h3>
-            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-8">{displayedText}</h3>
-            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-6">{displayedText}</h3>
-            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-4">{displayedText}</h3>
-            <h3 className="text-[10vh] text-shadow-lg tracking-widest opacity-2">{displayedText}</h3>
+        <div className="fixed bold top-0 left-0 z-0 text-nowrap blur-md"> 
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-10">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-8">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-6">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-5">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-4">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-3">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-2">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-1">{displayedText}</h3>
         </div>
     </div>
     );
@@ -115,7 +118,7 @@ export function Beat() {
   return (
     <div>
         <div className="mt-4">
-        <TypingEffect texts={["You are now listening to...",name]} swing={true} />
+        <TypingEffect texts={["You are now listening to...",name,name]} swing={true} />
         <audio controls autoPlay loop className="mt-4 w-full hidden">
             <source src={URL.createObjectURL(song)} type="audio/mpeg" />
             Your browser does not support the audio element.
@@ -127,7 +130,7 @@ export function Beat() {
 
 export default function () {
     const random = Math.random() * 4 + 1;
-    const duration = `${random}s`;
+    const [duration = `${random}s`, setDuration] = useState(`${random}s`);
     const [clicked, setClicked] = useState(false);
     const [bgColor, setBgColor] = useState('');
     const handleClick = () => {
@@ -136,13 +139,19 @@ export default function () {
     };
     setTimeout(() => {
         const randomColor = Math.floor(Math.random() * 256);
-        if (Math.random() < 0.25) {
-            setBgColor(`rgb(${Math.floor(Math.random() * 256)}, 0, ${Math.floor(Math.random() * 256)})`);
-        } else {
+        const odds = Math.random();
+        if (odds > 0.6) {
+            setBgColor('black');
+            setDuration('0s');
+        } else if (odds < 0.25) {
             setBgColor(`rgb(${randomColor}, ${randomColor}, ${randomColor})`);
+            setDuration(`${random}s`);
+        } else {
+            setBgColor(`rgb(${Math.floor(Math.random() * 256)}, 0, ${Math.floor(Math.random() * 256)})`);
+            setDuration(`${random}s`);
         }
         
-    }, 3000); // Change color within 1 second of click
+    }, 3000); // change every 3 seconds
 
     return (
         <>
@@ -156,9 +165,9 @@ export default function () {
         <div className="relative">
             <NavBar />
             {!clicked ? (
-                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:blur-xs hover:text-7xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
+                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:blur-xs hover:text-8xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
             ) : (
-                <div className="p-4 max-w-screen mx-auto">
+                <div className="p-4 mx-auto overflow-x-hidden">
                     <Beat />
                     <div
                         className="fixed top-0 left-0 inset-0 z-0 w-screen h-screen bg-white opacity-0 animate-fadee transition-colors pointer-events-none"
