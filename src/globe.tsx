@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Globe from "react-globe.gl";
+import { label } from "three/tsl";
 
 const GlobePage = () => {
   const globeEl = useRef<any>(null);
@@ -11,6 +12,7 @@ const GlobePage = () => {
       endLat: 40.6275,
       endLng: 141.3621,
       color: "red",
+      label: "I was just in Japan!",
     },
   ];
 
@@ -24,6 +26,16 @@ const GlobePage = () => {
       alt: 0,
     },
   ];
+
+  const pointClick = (point: any) => {
+    if (point.label === "Philly") {
+      alert("You clicked on my hometown Philly!");
+    }
+  }
+
+  const globeClick = (coords: any) => {
+    window.open(`https://www.google.com/maps/@${coords.lat},${coords.lng},6z`, "_blank");
+  }
 
   useEffect(() => {
     if (!globeEl.current) return;
@@ -45,9 +57,12 @@ const GlobePage = () => {
         pointLabel="label"
         arcsData={arcData}
         arcColor="color"
-        arcDashLength={0.3}
+        arcLabel="label"
+        arcStroke={1}
         arcDashGap={0.5}
         arcDashAnimateTime={2000}
+        onPointClick={pointClick}
+        onGlobeClick={globeClick}
         width={400}
         height={400}
       />

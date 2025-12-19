@@ -93,7 +93,12 @@ const MovingBunny = ({ score, setScore }: MovingBunnyProps) => {
     });
 
     setScore((prev) => prev + 1);
-    
+    if (score >= 10) {
+      setVelocity((prev) => ({
+        vx: prev.vx * 1.2,
+        vy: prev.vy * 1.2,
+      }));
+    }
   };
 
   if (!texture) return null;

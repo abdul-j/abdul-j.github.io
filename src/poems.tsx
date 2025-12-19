@@ -136,7 +136,7 @@ export default function () {
         description="poemssss"
         keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Works", "Poems"]}
         author="Abdul Aziz Jeter"
-        canonical="https://abdulisabroad.com/poems"
+        canonical="https://abdulisabroad.com/works/poems"
       />
       <div className="mx-auto text-center">
         <NavBar />

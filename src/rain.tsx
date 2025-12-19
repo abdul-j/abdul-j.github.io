@@ -16,7 +16,7 @@ export default function Rain() {
   if (!app.stage || !app.renderer) return null;
   for (let i = 0; i < raindrops; i++) {
     const drop = new Particle(texture);
-    drop.tint = 0x66ccff;
+    drop.tint = 0x88ddff;
     drop.x = Math.random() * app.renderer.width;
     drop.y = Math.random() * app.renderer.height;
     drop.scaleX = Math.random() * 2;

@@ -48,7 +48,7 @@ export function ErrorBoundary({ error }: { error: unknown }) {
           </pre>
         )}
 
-        <video width="640" height="360" loop autoPlay muted>
+        <video width="640" height="360" controls muted>
           <source src="/assets/vid2.mp4" type="video/mp4" />
           Your browser does not support HTML5 video.
         </video>

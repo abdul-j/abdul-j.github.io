@@ -14,6 +14,7 @@ import Works from './works';
 import Poems from './poems';
 import Archive from './archive';
 import PoemPage from './poempage';
+import Music from './music';
 import { ErrorBoundary } from './404';
 
 // Create the router
@@ -53,6 +54,16 @@ const router = createBrowserRouter(
                   Component: PoemPage
                 }
               ]
+            }
+          ]
+        },
+        {
+          path: 'music',
+          element: <Outlet />,
+          children: [
+            {
+              index: true,
+              Component: Music
             }
           ]
         }
