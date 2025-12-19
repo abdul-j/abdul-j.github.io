@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import Globe from "react-globe.gl";
-import { label } from "three/tsl";
 
 const GlobePage = () => {
   const globeEl = useRef<any>(null);
