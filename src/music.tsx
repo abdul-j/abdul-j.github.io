@@ -139,11 +139,10 @@ export default function () {
     };
     setTimeout(() => {
         const randomColor = Math.floor(Math.random() * 256);
-        const odds = Math.random();
-        if (odds > 0.6) {
-            setBgColor('black');
-            setDuration('0s');
-        } else if (odds < 0.25) {
+        if (Math.random() > 0.6) {
+            setBgColor('#aaaaaa');
+            setDuration('3s');
+        } else if (Math.random() < 0.25) {
             setBgColor(`rgb(${randomColor}, ${randomColor}, ${randomColor})`);
             setDuration(`${random}s`);
         } else {
