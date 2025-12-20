@@ -108,11 +108,11 @@ export function Beat() {
   }
 
   if (error) {
-    return <p className="text-red-500">Error: {error}</p>;
+    return <TypingEffect texts={[`Error: ${error}`]} swing={false} />;
   }
 
   if (!song) {
-    return <p>Song not found</p>;
+    return <TypingEffect texts={["No song found"]} swing={false} />;
   }
 
   return (
@@ -135,7 +135,6 @@ export default function () {
     const [bgColor, setBgColor] = useState('');
     const handleClick = () => {
         setClicked(true);
-        document.documentElement.style.overflow = 'hidden';
     };
     setTimeout(() => {
         const randomColor = Math.floor(Math.random() * 256);
@@ -154,32 +153,32 @@ export default function () {
 
     return (
         <>
-        <SEO 
-            title="Headphones not included"
-            description="beats songs etc"
-            keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Works", "Music"]}
-            author="Abdul Aziz Jeter"
-            canonical="https://abdulisabroad.com/works/music"
-        />
-        <div className="relative">
-            <NavBar />
-            {!clicked ? (
-                <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:blur-xs hover:text-8xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
-            ) : (
-                <div className="p-4 mx-auto overflow-x-hidden">
-                    <Beat />
-                    <div
-                        className="fixed top-0 left-0 inset-0 z-0 w-screen h-screen bg-white opacity-0 animate-fadee transition-colors pointer-events-none"
-                        style={{
-                            backgroundColor: bgColor,
-                            animationDuration: duration,
-                        }}
-                    />
+            <SEO 
+                title="Headphones not included"
+                description="beats songs etc"
+                keywords={["Abdul", "Aziz", "Jeter", "Portfolio", "Works", "Music"]}
+                author="Abdul Aziz Jeter"
+                canonical="https://abdulisabroad.com/works/music"
+            />
+            <div className="relative">
+                <NavBar />
+                {!clicked ? (
+                    <h1 onClick={handleClick} className="text-6xl text-center hover:cursor-pointer hover:blur-xs hover:text-8xl hover:text-my-blue hover:scale-y-300 mb-6">Click me to play a song</h1>
+                ) : (
+                    <div className="p-4 mx-auto overflow-x-hidden">
+                        <Beat />
+                        <div
+                            className="fixed top-0 left-0 inset-0 z-0 w-screen h-screen bg-white opacity-0 animate-fadee transition-colors pointer-events-none"
+                            style={{
+                                backgroundColor: bgColor,
+                                animationDuration: duration,
+                            }}
+                        />
 
-                </div>
-            )}
-            
-        </div>
+                    </div>
+                )}
+                
+            </div>
         </>
     );
 }
