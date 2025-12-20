@@ -45,7 +45,7 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
   return (
     <div className="pointer-events-none select-none">
         <div className="lg:fixed bold lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 z-20"> 
-            <h1 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest blur-xs lg:scale-x-200 text-balance wrap-anywhere">{displayedText}</h1>
+            <h1 className="lg:text-[10vh] lg:text-center lg:max-w-screen text-8xl text-shadow-lg tracking-widest blur-xs lg:scale-x-200 wrap-anywhere">{displayedText}</h1>
         </div>
         <div className="fixed skew-12 transform-flat z-10 max-w-1/2 skew-x-50 blur-xs">
             <h2 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-0">{displayedText}</h2>
@@ -65,6 +65,11 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
             <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-3">{displayedText}</h3>
             <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-2">{displayedText}</h3>
             <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest opacity-1">{displayedText}</h3>
+        </div>
+        <div className="fixed bold top-0 right-10 max-w-10 z-0 text-center wrap-anywhere skew-x-10 skew-y-50 blur-sm"> 
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest rotate-10 opacity-30">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest rotate-10 opacity-20">{displayedText}</h3>
+            <h3 className="lg:text-[10vh] text-8xl text-shadow-lg tracking-widest rotate-10 opacity-10">{displayedText}</h3>
         </div>
     </div>
     );
