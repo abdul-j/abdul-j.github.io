@@ -42,7 +42,7 @@ function Home() {
         <NavBar />
         <div className="mx-auto justify-center text-center">
           <h2 className="h-pad">Welcome.</h2>
-          <div className="select-none" onClick={checkDrag} onPointerDown={() => (start.current = performance.now())}>
+          <div className="select-none" onPointerUp={checkDrag} onPointerDown={() => (start.current = performance.now())}>
             <GlobeComponent />
           </div>
           <p className="h-pad">I am working on adding some new features at the moment.</p>
