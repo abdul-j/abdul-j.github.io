@@ -296,7 +296,7 @@ const Animation = () => {
     });
       noiseRef.current?.play();
     }
-    if (score >= 20) {
+    if (score === 20) {
       bgRef.current = new Howl({
         src: ["/assets/contact.mp3"],
         loop: true,
