@@ -36,14 +36,12 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   const [crazy, setCrazy] = useState(false);
   const [bunnies, setBunnies] = useState(0);
   const [bunniesArray, setBunniesArray] = useState<any[]>([]);
+  const [lives, setLives] = useState(3);
 
   const blipSound = new Howl({
     src: ["/assets/bunnyBlip.wav"]
   });
 
-  const crazySound = new Howl({
-    src: ["/assets/crazy.wav"]
-  });
   const bounceBunny = ({x, y, vx, vy}: {x: number, y: number, vx: number, vy: number}) => {
 
     // Update position
@@ -99,6 +97,7 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
         ];
       });
       setBunnies((prev) => prev + 1);
+
       } else {
         setBunnyPos(prev => ({
           ...prev,
@@ -108,9 +107,20 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
       }
     }
   };
-  
-  const bunnyClick = () => {
-    blipSound.play();
+
+  const bunnyClick = (bunny: any) => {
+    // Remove bunny from array
+    setBunniesArray((prev) => prev.filter((b) => b.id !== bunny.id));
+
+    setLives((prev) => {
+      if (prev - 1 <= 0) {
+        alert("Game Over! Your final score was: " + score);
+        window.location.reload();
+        return 0;
+      } else {
+        return prev - 1;
+      }
+    } );
 
   }
 
@@ -122,14 +132,13 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   useEffect(() => {
     if (score >= 20) {
       if (crazy) return;
-      crazySound.play();
       setCrazy(true);
     }
   }, [score]); 
 
   // Rotate bunny only when NOT playing
   useTick(() => {
-    setRotation(Math.sin(Date.now() / 200) * 0.2)
+    setRotation(Math.sin(Date.now() / 200) * 0.2);
     if (gameStart) {
       setBunnyPos(bounceBunny(bunnyPos));
       if (crazy) {
@@ -172,11 +181,21 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
           y={bunny.y}
           interactive
           cursor="pointer"
-          onPointerDown={() => bunnyClick()}
+          onPointerDown={() => bunnyClick(bunny)}
         >
-          <pixiSprite texture={texture} rotation={rotation} scale={scale} />
+          <pixiSprite texture={texture} scale={scale}  />
         </pixiContainer>
       ))}
+      {crazy && <pixiText
+        text={`Lives: ${lives}`}
+        x={startX}
+        y={10}
+        style={{
+          fontFamily: "Minecraft",
+          fontSize: 36,
+          fill: 0xffffff,
+        }}
+      />}
     </>
     
   );
@@ -263,9 +282,9 @@ const Score = ({ score }: { score: number }) => {
 
 const Animation = () => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(18);
   const [fall, setFall] = useState(false);
-
+  
   return (
     <div className="relative p-[3px] rounded-xl">
       <div
@@ -278,6 +297,7 @@ const Animation = () => {
         `}
       ></div>
       {fall && <audio className="hidden" src="/assets/noise.wav" autoPlay loop preload="auto" />}
+      {score >= 20 && <audio className="hidden" src="/assets/contact.mp3" autoPlay loop preload="auto" />}
       <div ref={divRef} className="relative mx-auto rounded-lg overflow-hidden">
         <Application 
           resizeTo={divRef} 
