@@ -40,6 +40,10 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   const blipSound = new Howl({
     src: ["/assets/bunnyBlip.wav"]
   });
+
+  const crazySound = new Howl({
+    src: ["/assets/crazy.wav"]
+  });
   const bounceBunny = ({x, y, vx, vy}: {x: number, y: number, vx: number, vy: number}) => {
 
     // Update position
@@ -116,11 +120,9 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   }, []);
   
   useEffect(() => {
-    if (score == 10) {
-      alert(`Congrats! You tapped the bunny ${score} times!`);
-    } else if (score >= 20) {
+    if (score >= 20) {
       if (crazy) return;
-      //alert(`Wowww...!`);
+      crazySound.play();
       setCrazy(true);
     }
   }, [score]); 
