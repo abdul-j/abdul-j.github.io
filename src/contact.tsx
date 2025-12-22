@@ -15,10 +15,10 @@ const startX = window.innerWidth * 0.5;
 const startY = appHeight * 0.9 - Math.random() * appHeight * 0.5;
 
 const links = [
-  { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio + appHeight * 0.1, url: "" },
-  { id: "linkedin", text: "LinkedIn", color: 0x3b82f6, y: screenRatio * 100 + appHeight * 0.1, url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
-  { id: "instagram", text: "Instagram", color: 0x10b981, y: screenRatio * 200 + appHeight * 0.1, url: "https://www.instagram.com/abdul.7z/" },
-  { id: "email", text: "E-Mail", color: 0x00ffcc, y: screenRatio * 300 + appHeight * 0.1, url: "abdulazizjtr@gmail.com" },
+  { id: "contact", text: "Contact Me", color: 0xff0000, y: screenRatio , url: "" },
+  { id: "linkedin", text: "LinkedIn", color: 0x3b82f6, y: screenRatio * 100 , url: "https://www.linkedin.com/in/abdul-aziz-jeter-3315251b1" },
+  { id: "instagram", text: "Instagram", color: 0x10b981, y: screenRatio * 200 , url: "https://www.instagram.com/abdul.7z/" },
+  { id: "email", text: "E-Mail", color: 0x00ffcc, y: screenRatio * 300 , url: "abdulazizjtr@gmail.com" },
 ];
 
 interface MovingBunnyProps {
@@ -315,7 +315,7 @@ const Animation = () => {
       noiseRef.current?.stop();
       noiseRef.current?.unload();
     };
-  }, [fall, score]);
+  }, [fall]);
   
   return (
     <div className="relative p-[3px] rounded-xl">
