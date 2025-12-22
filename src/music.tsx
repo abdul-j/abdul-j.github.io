@@ -44,7 +44,7 @@ export function TypingEffect({ texts = [""], swing = false }: TypingEffectProps)
   }, [index, textIndex, direction]);    
   return (
     <div className="pointer-events-none select-none">
-        <div className="lg:fixed bold lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 z-20"> 
+        <div className="lg:fixed bold lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 z-20 wrap-anywhere text-pretty"> 
             <h1 className="lg:text-[10vh] lg:text-center lg:max-w-screen text-8xl text-shadow-lg tracking-widest blur-xs lg:scale-x-200 wrap-anywhere">{displayedText}</h1>
         </div>
         <div className="fixed skew-12 transform-flat z-10 max-w-1/2 skew-x-50 blur-xs">
@@ -133,7 +133,7 @@ export function Beat() {
   );
 }
 
-export default function () {
+export default function Music() {
     const random = Math.random() * 4 + 1;
     const [duration = `${random}s`, setDuration] = useState(`${random}s`);
     const [clicked, setClicked] = useState(false);

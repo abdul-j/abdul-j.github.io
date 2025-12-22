@@ -2,6 +2,7 @@ import NavBar from "./navbar";
 import { Application, extend, useTick } from "@pixi/react";
 import { useEffect, useState, useRef } from "react";
 import { Assets, Sprite, Text, Container } from "pixi.js";
+import { Howl } from "howler";
 import Rain from "./rain";
 import SEO from "./seo";
 import mFont from "/assets/Minecraft.ttf";
@@ -30,14 +31,16 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   const [texture, setTexture] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [gameStart, setGameStart] = useState(false);
-  const [bunnyPos, setBunnyPos] = useState({ x: startX, y: startY});
-  const [velocity, setVelocity] = useState({ vx: 3, vy: 3 });
+  const [bunnyPos, setBunnyPos] = useState({ x: startX, y: startY, vx: 3, vy: 3});
   const [scale, setScale] = useState(2);
+  const [crazy, setCrazy] = useState(false);
+  const [bunnies, setBunnies] = useState(0);
+  const [bunniesArray, setBunniesArray] = useState<any[]>([]);
 
-  const bounceBunny = () => {
-    setBunnyPos(prev => {
-    let { x, y } = prev;
-    let { vx, vy } = velocity;
+  const blipSound = new Howl({
+    src: ["/assets/bunnyBlip.wav"]
+  });
+  const bounceBunny = ({x, y, vx, vy}: {x: number, y: number, vx: number, vy: number}) => {
 
     // Update position
     x += vx;
@@ -54,20 +57,71 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
       y = Math.max(0, Math.min(window.innerHeight * 0.8 - 120, y)); // clamp within bounds
     }
 
-    // Update velocity state only when changed
-    setVelocity({ vx, vy });
+    return { x, y, vx, vy};
 
-    return { x, y };
-  });
   };
 
+  const handleClick = () => {
+    blipSound.play();
+    if (!gameStart) {
+      setGameStart(true);
+      setFall(true);
+
+    }
+    setScale(Math.random() + 3);
+
+    setBunnyPos({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * appHeight,
+      vx: bunnyPos.vx,
+      vy: bunnyPos.vy,
+    });
+
+    setScore((prev) => prev + 1);
+    if (score >= 10) {
+      if (score >= 20) {
+      console.log("crazy mode!");
+      // Add new bunny
+      setBunniesArray(prev => {
+        return [
+          ...prev,
+          {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * appHeight,
+            vx: bunnyPos.vx,
+            vy: bunnyPos.vy,
+            id: bunnies
+          },
+        ];
+      });
+      setBunnies((prev) => prev + 1);
+      } else {
+        setBunnyPos(prev => ({
+          ...prev,
+          vx: prev.vx * 1.1,
+          vy: prev.vy * 1.1,
+        }));
+      }
+    }
+  };
+  
+  const bunnyClick = () => {
+    blipSound.play();
+
+  }
+
+    // Load texture
+  useEffect(() => {
+    Assets.load("https://pixijs.com/assets/bunny.png").then((tex) => setTexture(tex));
+  }, []);
+  
   useEffect(() => {
     if (score == 10) {
       alert(`Congrats! You tapped the bunny ${score} times!`);
     } else if (score >= 20) {
-      alert(`Enough is enough! I'm sending you home...!`);
-      window.location.href = "/";
-      return;
+      if (crazy) return;
+      //alert(`Wowww...!`);
+      setCrazy(true);
     }
   }, [score]); 
 
@@ -75,63 +129,76 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   useTick(() => {
     setRotation(Math.sin(Date.now() / 200) * 0.2)
     if (gameStart) {
-      bounceBunny();
+      setBunnyPos(bounceBunny(bunnyPos));
+      if (crazy) {
+        setBunniesArray((prevBunnies) => {
+          return prevBunnies.map((bunny) => {
+            const newPos = bounceBunny(bunny);
+            return {
+              ...bunny,
+              x: newPos.x,
+              y: newPos.y,
+              vx: newPos.vx,
+              vy: newPos.vy,
+            };
+          });
+        }
+        );
+      }
+
     } 
+    
   });
-
-  // Load texture
-  useEffect(() => {
-    Assets.load("https://pixijs.com/assets/bunny.png").then((tex) => setTexture(tex));
-  }, []);
-
-  const handleClick = () => {
-    setGameStart(true);
-    setScale(Math.random() + 3);
-
-    setBunnyPos({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * appHeight,
-    });
-
-    setScore((prev) => prev + 1);
-    setFall(true);
-    if (score >= 10) {
-      setVelocity((prev) => ({
-        vx: prev.vx * 1.2,
-        vy: prev.vy * 1.2,
-      }));
-    }
-  };
 
   if (!texture) return null;
 
   return (
-    <pixiContainer
-      x={bunnyPos.x}
-      y={bunnyPos.y}
-      interactive
-      cursor="pointer"
-      onPointerDown={handleClick}
-    >
-      <pixiSprite texture={texture} rotation={rotation} scale={scale} />
-    </pixiContainer>
+    <>
+      <pixiContainer
+        x={bunnyPos.x}
+        y={bunnyPos.y}
+        interactive
+        cursor="pointer"
+        onPointerDown={handleClick}
+      >
+        <pixiSprite texture={texture} rotation={rotation} scale={scale} />
+      </pixiContainer>
+      {crazy && bunniesArray.map((bunny: any) => (
+        <pixiContainer
+          key={bunny.id}
+          x={bunny.x}
+          y={bunny.y}
+          interactive
+          cursor="pointer"
+          onPointerDown={() => bunnyClick()}
+        >
+          <pixiSprite texture={texture} rotation={rotation} scale={scale} />
+        </pixiContainer>
+      ))}
+    </>
+    
   );
 };
 
 const ContactLinks = () => {
   const [font, setFont] = useState(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const blipSound = new Howl({
+    src: ["/assets/bunnyBlip.wav"]
+  });
 
   useEffect(() => {
     Assets.load(mFont).then((tex) => setFont(tex));
   }, []);
 
   const linkClick = (link: string) => {
+    blipSound.play();
     if (link.startsWith("a")) {
       navigator.clipboard.writeText(link).then(() => {
         alert("I just copied my email to clipboard!");
       }).catch((error) => {
         alert("Failed to copy my email noooo: " + error);
+        window.open(link, "_blank");
       });
     } else if (link === "") {
       alert("You can contact me through any of the other links!");
@@ -171,6 +238,9 @@ const ContactLinks = () => {
 };
 
 const Score = ({ score }: { score: number }) => {
+  const sound = new Howl({
+    src: ["/assets/bunnyBlip.wav"]
+  });
   if (score == 0) return null;
   return (
     <pixiText
@@ -182,6 +252,9 @@ const Score = ({ score }: { score: number }) => {
         fontSize: 36,
         fill: 0xffffff,
       }}
+      interactive
+      cursor="pointer"
+      onPointerDown={() => sound.play()}
     />
   );
 };

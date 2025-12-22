@@ -95,6 +95,7 @@ export default function () {
         <div className="flex flex-col items-center justify-center space-y-6 my-12">
           <Link to="/works/poems" className="text-7xl hover:underline" prefetch="viewport">Poems</Link>
           <Link to="/works/music" className="text-7xl hover:underline" prefetch="viewport">Music</Link>
+          <Link to="/works/tools" className="text-7xl hover:underline" prefetch="viewport">Tools</Link>
         </div>
       </div>
     </>
