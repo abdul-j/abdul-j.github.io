@@ -1,7 +1,8 @@
 import NavBar from "./navbar";
 import aj from "/assets/me.jpg";
 import Paper from "./paper";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Howl } from "howler";
 import noteSvg from "/assets/note.svg";
 import returnSvg from "/assets/return.svg";
 import SEO from "./seo";
@@ -10,11 +11,29 @@ import Handwrite from "./handwrite";
 export default function Home() {
   const [open, setOpen] = useState(true);
   const start = useRef(0);
+  const [play, setPlay] = useState(false);
+  const bgRef = useRef<Howl | null>(null);
   const handleClick = () => {
     // on every click push a new coordinate to the boxes array
     if (performance.now() - start.current > 200) return;
     setOpen(!open);
+    setPlay(true);
   };
+
+  useEffect(() => {
+    bgRef.current = new Howl({
+      src: ["/assets/about that.mp3"],
+      loop: true,
+      volume: 0.5,
+    });
+    if (play) {
+      bgRef.current?.play();
+    }
+    return () => {
+      bgRef.current?.stop();
+      bgRef.current?.unload();
+    };
+  }, [play]);
   return (
     <>
       <SEO 

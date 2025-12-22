@@ -187,7 +187,7 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
         </pixiContainer>
       ))}
       {crazy && <pixiText
-        text={`Lives: ${lives}`}
+        text={`LIVES: ${lives}`}
         x={startX}
         y={10}
         style={{
@@ -282,8 +282,35 @@ const Score = ({ score }: { score: number }) => {
 
 const Animation = () => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [score, setScore] = useState(18);
+  const [score, setScore] = useState(0);
   const [fall, setFall] = useState(false);
+  const noiseRef = useRef<Howl | null>(null);
+  const bgRef = useRef<Howl | null>(null);
+
+  useEffect(() => {
+    if (fall) {
+      noiseRef.current = new Howl({
+      src: ["/assets/noise.wav"],
+      loop: true,
+      volume: 0.5,
+    });
+      noiseRef.current?.play();
+    }
+    if (score >= 20) {
+      bgRef.current = new Howl({
+        src: ["/assets/contact.mp3"],
+        loop: true,
+        volume: 0.5,
+      });
+      bgRef.current?.play();
+    }
+    return () => {
+      noiseRef.current?.stop();
+      noiseRef.current?.unload();
+      bgRef.current?.stop();
+      bgRef.current?.unload();
+    };
+  }, [fall, score]);
   
   return (
     <div className="relative p-[3px] rounded-xl">
@@ -296,8 +323,6 @@ const Animation = () => {
           ${score > 0 ? 'opacity-100' : 'opacity-0'}
         `}
       ></div>
-      {fall && <audio className="hidden" src="/assets/noise.wav" autoPlay loop preload="auto" />}
-      {score >= 20 && <audio className="hidden" src="/assets/contact.mp3" autoPlay loop preload="auto" />}
       <div ref={divRef} className="relative mx-auto rounded-lg overflow-hidden">
         <Application 
           resizeTo={divRef} 
