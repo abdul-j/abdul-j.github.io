@@ -37,6 +37,7 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
   const [bunnies, setBunnies] = useState(0);
   const [bunniesArray, setBunniesArray] = useState<any[]>([]);
   const [lives, setLives] = useState(3);
+  const bgRef = useRef<Howl | null>(null);
 
   const blipSound = new Howl({
     src: ["/assets/bunnyBlip.wav"]
@@ -135,6 +136,21 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
       setCrazy(true);
     }
   }, [score]); 
+
+  useEffect(() => {
+    bgRef.current = new Howl({
+      src: ["/assets/contact.mp3"],
+      loop: true,
+      volume: 0.5,
+    });
+    if (crazy) {
+      bgRef.current?.play();
+    }
+    return () => {
+      bgRef.current?.stop();
+      bgRef.current?.unload();
+    };
+  }, [crazy]);
 
   // Rotate bunny only when NOT playing
   useTick(() => {
@@ -285,7 +301,6 @@ const Animation = () => {
   const [score, setScore] = useState(0);
   const [fall, setFall] = useState(false);
   const noiseRef = useRef<Howl | null>(null);
-  const bgRef = useRef<Howl | null>(null);
 
   useEffect(() => {
     if (fall) {
@@ -296,19 +311,9 @@ const Animation = () => {
     });
       noiseRef.current?.play();
     }
-    if (score === 20) {
-      bgRef.current = new Howl({
-        src: ["/assets/contact.mp3"],
-        loop: true,
-        volume: 0.5,
-      });
-      bgRef.current?.play();
-    }
     return () => {
       noiseRef.current?.stop();
       noiseRef.current?.unload();
-      bgRef.current?.stop();
-      bgRef.current?.unload();
     };
   }, [fall, score]);
   
