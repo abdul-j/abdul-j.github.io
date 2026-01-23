@@ -4,15 +4,24 @@ import { gsap } from "gsap";
 type HandwriteProps = {
   svgFile: string;
   animate?: boolean;
+  duration?: number;
+  width?: number;
+  height?: number;
+  delay?: number;
+  finished?: (status:boolean) => void;
 };
 
-export default function Handwrite({ svgFile, animate }: HandwriteProps) {
+export default function Handwrite({
+  svgFile,
+  animate,
+  duration = 4,
+  width = 200,
+  height = 200,
+  delay = 1000,
+  finished = () => {},
+}: HandwriteProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [shakes, setShakes] = useState("");
-  const duration = 4;
-  const width = 200;
-  const height = 200;
-  const delay = 1000;
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
@@ -63,15 +72,18 @@ export default function Handwrite({ svgFile, animate }: HandwriteProps) {
         pathDelay += segDuration;
       });
 
-      if (animate) {
-        setTimeout(() => {
+      const totalDuration = pathDelay;
+      setTimeout(() => {
+        if (animate) {
           setShakes("animate-shake");
-        }, pathDelay * 1000);
-      }
+        }
+        if (finished) finished(true);
+      }, totalDuration * 1000);
+
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [svgFile, animate]);
+  }, [svgFile, animate, delay, width, height, duration]);
 
   return <div ref={containerRef} className={shakes} />;
 }

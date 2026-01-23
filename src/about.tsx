@@ -14,10 +14,9 @@ export default function Home() {
   const [play, setPlay] = useState(false);
   const bgRef = useRef<Howl | null>(null);
   const handleClick = () => {
-    // on every click push a new coordinate to the boxes array
-    if (performance.now() - start.current > 200) return;
+    if (performance.now() - start.current > 150) return;
     setOpen(!open);
-    setPlay(true);
+    setPlay(!play);
   };
 
   useEffect(() => {
@@ -28,6 +27,8 @@ export default function Home() {
     });
     if (play) {
       bgRef.current?.play();
+    } else {
+      bgRef.current?.stop();
     }
     return () => {
       bgRef.current?.stop();

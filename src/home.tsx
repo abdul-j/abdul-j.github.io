@@ -25,7 +25,7 @@ function Home() {
   }, [play]);
 
   const checkDrag = () => {
-    if (performance.now() - start.current < 200) return;
+    if (performance.now() - start.current < 100) return;
     setPlay(true);
   };
 

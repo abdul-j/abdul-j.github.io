@@ -17,6 +17,10 @@ import PoemPage from './poempage';
 import Music from './music';
 import Tools from './tools';
 import Saw from './saw';
+
+import Alana from './alana/home';
+
+
 import { ErrorBoundary } from './404';
 
 // Create the router
@@ -93,6 +97,17 @@ const router = createBrowserRouter(
       path: '/contact',
       Component: Contact
     },
+    {
+      path: '/alana/*',
+      element: <Outlet />,
+      children: [
+        {
+          index: true,
+          Component: Alana
+        }
+      ]   
+      
+    }
   ],
   {
     basename: '/',

@@ -205,11 +205,11 @@ const MovingBunny = ({ score, setScore, setFall }: MovingBunnyProps) => {
       {crazy && <pixiText
         text={`LIVES: ${lives}`}
         x={startX}
-        y={10}
+        y={startY - 50}
         style={{
           fontFamily: "Minecraft",
           fontSize: 36,
-          fill: 0xffffff,
+          fill: 0x0ffcc,
         }}
       />}
     </>
